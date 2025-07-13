@@ -18,7 +18,7 @@ class Product {
   String get name => _name;
   String get description => _description;
   double get price => _price;
-  bool get isCompleted => isCompleted;
+  bool get isCompleted => _isCompleted;
 
   // Setters to update the private variables
   set name(String name) => _name = name;
