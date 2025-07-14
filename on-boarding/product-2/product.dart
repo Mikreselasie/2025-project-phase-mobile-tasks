@@ -1,28 +1,22 @@
+// product.dart
 class Product {
   String _name;
   String _description;
   double _price;
-  bool _isCompleted;
 
-  Product({
-    required String name,
-    required String description,
-    required double price,
-    required bool isCompleted,
-  }) : _name = name,
-       _description = description,
-       _price = price,
-       _isCompleted = isCompleted;
+  Product(this._name, this._description, this._price);
 
-  // Getters to access the private variables
   String get name => _name;
-  String get description => _description;
-  double get price => _price;
-  bool get isCompleted => _isCompleted;
-
-  // Setters to update the private variables
   set name(String name) => _name = name;
+
+  String get description => _description;
   set description(String description) => _description = description;
+
+  double get price => _price;
   set price(double price) => _price = price;
-  set isCompleted(bool isCompleted) => _isCompleted = isCompleted;
+
+  @override
+  String toString() {
+    return 'Name: $_name\nDescription: $_description\nPrice: \$$_price';
+  }
 }
