@@ -1,4 +1,3 @@
-// product_manager.dart
 import 'product.dart';
 
 class ProductManager {
@@ -6,51 +5,62 @@ class ProductManager {
 
   void addProduct(Product product) {
     _products.add(product);
-    print('✅ Product added successfully.\n');
+    print('Product "${product.name}" added successfully.\n');
   }
 
   void viewAllProducts() {
     if (_products.isEmpty) {
-      print('⚠️ No products available.\n');
+      print('No products available.\n');
       return;
     }
-    for (int i = 0; i < _products.length; i++) {
-      print('🔢 Product ${i + 1}:\n${_products[i]}\n');
+    for (var product in _products) {
+      print('${product.name}:\n$product\n');
     }
   }
 
-  void viewProduct(int index) {
-    if (_isValidIndex(index)) {
-      print(_products[index]);
+  void viewProductByName(String name) {
+    final product = _findProductByName(name);
+    if (product != null) {
+      print('Product Found:\n$product\n');
     } else {
-      print('❌ Product not found.\n');
+      print('Product "$name" not found.\n');
     }
   }
 
-  void editProduct(
-    int index, {
-    String? name,
-    String? description,
-    double? price,
+  void editProductByName(
+    String name, {
+    String? newName,
+    String? newDescription,
+    double? newPrice,
   }) {
-    if (_isValidIndex(index)) {
-      if (name != null) _products[index].name = name;
-      if (description != null) _products[index].description = description;
-      if (price != null) _products[index].price = price;
-      print('✏️ Product updated successfully.\n');
+    final product = _findProductByName(name);
+    if (product != null) {
+      if (newName != null) product.name = newName;
+      if (newDescription != null) product.description = newDescription;
+      if (newPrice != null) product.price = newPrice;
+      print('Product "$name" updated successfully.\n');
     } else {
-      print('❌ Product not found.\n');
+      print('Product "$name" not found.\n');
     }
   }
 
-  void deleteProduct(int index) {
-    if (_isValidIndex(index)) {
-      _products.removeAt(index);
-      print('🗑️ Product deleted successfully.\n');
+  void deleteProductByName(String name) {
+    final product = _findProductByName(name);
+    if (product != null) {
+      _products.remove(product);
+      print('Product "$name" deleted successfully.\n');
     } else {
-      print('❌ Product not found.\n');
+      print('Product "$name" not found.\n');
     }
   }
 
-  bool _isValidIndex(int index) => index >= 0 && index < _products.length;
+  Product? _findProductByName(String name) {
+    try {
+      return _products.firstWhere(
+        (product) => product.name.toLowerCase() == name.toLowerCase(),
+      );
+    } catch (_) {
+      return null;
+    }
+  }
 }
