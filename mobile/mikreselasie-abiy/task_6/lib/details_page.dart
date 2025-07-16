@@ -16,80 +16,143 @@ class DetailsPage extends StatelessWidget {
             Stack(
               children: [
                 Image.asset(product.imageURL),
-                Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.background,
-                  ),
-                  margin: EdgeInsets.all(20),
-                  height: 40,
-                  width: 40,
-                  child: Icon(
-                    Icons.arrow_back_ios_new,
-                    size: 15,
-                    color: AppColors.primary,
+                Positioned(
+                  left: 20,
+                  top: 20,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColors.background,
+                      ),
+                      height: 40,
+                      width: 40,
+                      child: Icon(
+                        Icons.arrow_back_ios_new,
+                        size: 15,
+                        color: AppColors.primary,
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Expanded(
+              // This makes the inner content take available space
+              child: Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(product.productCategory.displayName),
-                      Text("⭐(${product.rating.value})"),
+                      SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            product.productCategory.displayName,
+                            style: AppTextStyles.descriptionPageCategoryShow,
+                          ),
+                          Text(
+                            "⭐(${product.rating.value})",
+                            style: AppTextStyles.descriptionPageCategoryShow,
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(product.name, style: AppTextStyles.bigheading),
+                          Text(
+                            '\$${product.price}',
+                            style: AppTextStyles.priceText,
+                          ),
+                        ],
+                      ),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                        child: Text("Size: ", style: AppTextStyles.heading2),
+                      ),
+                      SizedBox(
+                        height: 80,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 7,
+                          itemBuilder: (context, index) {
+                            final number = 39 + index;
+                            return Container(
+                              width: 60,
+                              height: 60,
+                              margin: EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.15),
+                                    offset: Offset(0, 2),
+                                    blurRadius: 4,
+                                    spreadRadius: 0,
+                                  ),
+                                ],
+                              ),
+                              alignment: Alignment.center,
+                              child: Text(
+                                number.toString(),
+                                style: AppTextStyles.cardProductName,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        product.description,
+                        softWrap: true,
+                        style: AppTextStyles.bodyText,
+                      ),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text(product.name), Text('\$${product.price}')],
-                  ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                    child: Text("Size: "),
-                  ),
-
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
                   SizedBox(
-                    height:
-                        80, // Height enough to accommodate Container + shadow
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 7, // Numbers 39 to 45 inclusive
-                      itemBuilder: (context, index) {
-                        final number = 39 + index;
-                        return Container(
-                          width: 60,
-                          height: 60,
-                          margin: EdgeInsets.all(8), // spacing between items
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.15),
-                                offset: Offset(0, 2),
-                                blurRadius: 4,
-                                spreadRadius: 0,
-                              ),
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
-                                offset: Offset(0, 6),
-                                blurRadius: 10,
-                                spreadRadius: 0,
-                              ),
-                            ],
-                          ),
-                          alignment: Alignment.center,
-                          child: Text(
-                            number.toString(),
-                            style: TextStyle(fontSize: 18),
-                          ),
-                        );
-                      },
+                    width: 152,
+                    height: 50,
+                    child: OutlinedButton(
+                      onPressed: () {},
+                      child: Text("DELETE", style: AppTextStyles.deleteButton),
+                      style: OutlinedButton.styleFrom(
+                        padding: EdgeInsets.all(16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        side: BorderSide(color: Colors.red, width: 1),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 152,
+                    height: 50,
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Text("UPDATE", style: AppTextStyles.updateButton),
+                      style: TextButton.styleFrom(
+                        backgroundColor: AppColors.secondary,
+                        padding: EdgeInsets.all(16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
                     ),
                   ),
                 ],
