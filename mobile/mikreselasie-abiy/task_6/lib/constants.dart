@@ -84,4 +84,17 @@ class AppTextStyles {
     fontWeight: FontWeight.w400,
     color: AppColors.textSecondary,
   );
+
+  static const TextStyle welcomeTextHello = TextStyle(
+    fontSize: 12,
+    fontFamily: 'Sora',
+    fontWeight: FontWeight.w400,
+    color: AppColors.textSecondary,
+  );
+  static const TextStyle welcomeTextName = TextStyle(
+    fontSize: 15,
+    fontFamily: 'Sora',
+    fontWeight: FontWeight.w400,
+    color: AppColors.textPrimary,
+  );
 }
