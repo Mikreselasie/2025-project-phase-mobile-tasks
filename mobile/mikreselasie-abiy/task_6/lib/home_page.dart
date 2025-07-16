@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:task_6/add_update_page.dart';
 import 'package:task_6/helpers/product_card.dart';
 import 'package:task_6/helpers/product_category.dart';
 import 'package:task_6/helpers/rating.dart';
+import 'package:task_6/search_page.dart';
 import 'constants.dart';
 import 'product_manager.dart';
 import 'product.dart';
@@ -56,23 +58,27 @@ class HomePage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("July 14,2023", style: AppTextStyles.subtitle),
+                        Text("July 14,2023", style: AppTextStyles.dateText),
                         Row(
                           children: [
-                            Text("Hello, ", style: AppTextStyles.heading2grey),
-                            Text("Yohannes", style: AppTextStyles.heading2),
+                            Text(
+                              "Hello, ",
+                              style: AppTextStyles.welcomeTextHello,
+                            ),
+                            Text(
+                              "Yohannes",
+                              style: AppTextStyles.welcomeTextName,
+                            ),
                           ],
                         ),
                       ],
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.grey.shade700, width: 1),
+                  IconsBox(
+                    child: Icon(
+                      Icons.notifications_on,
+                      color: AppColors.textPrimary,
                     ),
-                    child: Icon(Icons.notifications_on),
                   ),
                 ],
               ),
@@ -83,16 +89,16 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Available Products", style: AppTextStyles.bigheading),
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 2,
-                        color: AppColors.textSecondary,
-                      ),
-                      borderRadius: BorderRadius.circular(10),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SearchPage()),
+                      );
+                    },
+                    child: IconsBox(
+                      child: Icon(Icons.search, color: AppColors.borderPrimary),
                     ),
-                    child: Icon(Icons.search, size: 30),
                   ),
                 ],
               ),
@@ -110,7 +116,12 @@ class HomePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddUpdatePage()),
+          );
+        },
         shape: CircleBorder(),
         backgroundColor: AppColors.secondary,
         child: Icon(Icons.add, size: 40, color: AppColors.background),
