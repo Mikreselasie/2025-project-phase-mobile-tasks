@@ -5,7 +5,7 @@ import 'package:task_6/product.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
-    this.imageAspectRatio = 16 / 6,
+    this.imageAspectRatio = 364 / 240,
     required this.product,
     Key? key,
   }) : assert(imageAspectRatio > 0),
@@ -20,7 +20,12 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
 
-    final imageWidget = Image.asset(product.imageURL, fit: BoxFit.cover);
+    final imageWidget = Image.asset(
+      product.imageURL,
+      fit: BoxFit.cover,
+      height: 160,
+      width: 366,
+    );
 
     return Card(
       margin: EdgeInsets.all(10),
