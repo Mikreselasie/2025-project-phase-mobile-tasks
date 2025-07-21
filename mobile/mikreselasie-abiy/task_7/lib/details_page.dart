@@ -129,7 +129,9 @@ class DetailsPage extends StatelessWidget {
                     width: 152,
                     height: 50,
                     child: OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       child: Text("DELETE", style: AppTextStyles.deleteButton),
                       style: OutlinedButton.styleFrom(
                         padding: EdgeInsets.all(16),
