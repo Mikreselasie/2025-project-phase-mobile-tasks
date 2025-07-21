@@ -59,7 +59,9 @@ class _AddUpdatePageState extends State<AddUpdatePage> {
                   width: double.infinity,
                   height: 50,
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/");
+                    },
                     style: TextButton.styleFrom(
                       backgroundColor: AppColors.secondary,
                       padding: EdgeInsets.all(16),
@@ -78,7 +80,9 @@ class _AddUpdatePageState extends State<AddUpdatePage> {
                   width: double.infinity,
                   height: 50,
                   child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                     child: Text("DELETE", style: AppTextStyles.deleteButton),
                     style: OutlinedButton.styleFrom(
                       padding: EdgeInsets.all(16),
