@@ -119,7 +119,9 @@ class HomePage extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AddUpdatePage()),
+            MaterialPageRoute(
+              builder: (context) => AddUpdatePage(pageType: "add"),
+            ),
           );
         },
         shape: CircleBorder(),
