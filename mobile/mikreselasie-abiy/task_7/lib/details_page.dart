@@ -144,7 +144,13 @@ class DetailsPage extends StatelessWidget {
                     width: 152,
                     height: 50,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          "/addUpdatePage",
+                          arguments: "update",
+                        );
+                      },
                       child: Text("UPDATE", style: AppTextStyles.updateButton),
                       style: TextButton.styleFrom(
                         backgroundColor: AppColors.secondary,

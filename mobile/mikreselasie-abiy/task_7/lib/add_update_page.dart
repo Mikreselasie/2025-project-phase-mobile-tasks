@@ -3,7 +3,8 @@ import 'package:task_7/constants.dart';
 import 'package:task_7/helpers/image_picker_container.dart';
 
 class AddUpdatePage extends StatefulWidget {
-  const AddUpdatePage({super.key});
+  const AddUpdatePage({super.key, required this.pageType});
+  final String pageType;
 
   @override
   State<AddUpdatePage> createState() => _AddUpdatePageState();
@@ -36,7 +37,7 @@ class _AddUpdatePageState extends State<AddUpdatePage> {
                     Expanded(
                       child: Center(
                         child: Text(
-                          "Add Product",
+                          "${widget.pageType} Product",
                           style: AppTextStyles.addProductText,
                         ),
                       ),
@@ -59,13 +60,16 @@ class _AddUpdatePageState extends State<AddUpdatePage> {
                   height: 50,
                   child: TextButton(
                     onPressed: () {},
-                    child: Text("ADD", style: AppTextStyles.updateButton),
                     style: TextButton.styleFrom(
                       backgroundColor: AppColors.secondary,
                       padding: EdgeInsets.all(16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
+                    ),
+                    child: Text(
+                      widget.pageType.toUpperCase(),
+                      style: AppTextStyles.updateButton,
                     ),
                   ),
                 ),
