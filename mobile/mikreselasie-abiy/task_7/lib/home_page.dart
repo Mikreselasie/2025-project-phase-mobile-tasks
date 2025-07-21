@@ -117,12 +117,7 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AddUpdatePage(pageType: "add"),
-            ),
-          );
+          Navigator.pushNamed(context, "/addUpdatePage", arguments: "add");
         },
         shape: CircleBorder(),
         backgroundColor: AppColors.secondary,

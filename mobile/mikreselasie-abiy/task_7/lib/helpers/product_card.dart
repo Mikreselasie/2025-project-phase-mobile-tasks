@@ -30,12 +30,7 @@ class ProductCard extends StatelessWidget {
       margin: EdgeInsets.all(10),
       child: GestureDetector(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => DetailsPage(product: product),
-            ),
-          );
+          Navigator.pushNamed(context, "/details", arguments: product);
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
