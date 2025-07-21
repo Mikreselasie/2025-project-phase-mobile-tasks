@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:task_7/add_update_page.dart';
 import 'package:task_7/helpers/product_card.dart';
 import 'package:task_7/helpers/product_category.dart';
 import 'package:task_7/helpers/rating.dart';
@@ -91,10 +90,7 @@ class HomePage extends StatelessWidget {
                   Text("Available Products", style: AppTextStyles.bigheading),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SearchPage()),
-                      );
+                      Navigator.pushNamed(context, "/searchPage");
                     },
                     child: IconsBox(
                       child: Icon(Icons.search, color: AppColors.borderPrimary),
