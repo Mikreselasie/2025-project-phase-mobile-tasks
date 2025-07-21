@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_7/constants.dart';
+import 'package:task_7/helpers/image_picker_container.dart';
 
 class AddUpdatePage extends StatefulWidget {
   const AddUpdatePage({super.key});
@@ -43,24 +44,7 @@ class _AddUpdatePageState extends State<AddUpdatePage> {
                   ],
                 ),
                 SizedBox(height: 30),
-                Container(
-                  width: double.infinity,
-                  height: 200,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: AppColors.borderPrimary,
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Icon(Icons.image_outlined, size: 36),
-                        Text('upload image', style: AppTextStyles.bodyText),
-                      ],
-                    ),
-                  ),
-                ),
-
+                ImagePickerContainer(),
                 InputTypeName(name: "name"),
                 InputInserted(),
                 InputTypeName(name: "category"),
