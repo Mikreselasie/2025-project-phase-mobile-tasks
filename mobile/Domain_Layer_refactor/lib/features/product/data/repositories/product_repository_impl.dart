@@ -44,12 +44,8 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<void> updateProduct({
-    required String id,
-    required String name,
-    required double price,
-    required String imageUrl,
-    required String description,
+  Future<Either<Failure, Product>> updateProduct({
+    required Product product,
   }) async {
     // TODO: implement updateProduct
     throw UnimplementedError();
