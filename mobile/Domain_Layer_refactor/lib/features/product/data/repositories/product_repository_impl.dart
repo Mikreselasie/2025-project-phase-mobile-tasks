@@ -30,7 +30,7 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<Product> getProductById(String id) {
+  Future<Either<Failure, Product>> getProductById(String id) {
     // TODO: implement getProductById
     throw UnimplementedError();
   }
@@ -38,6 +38,17 @@ class ProductRepositoryImpl implements ProductRepository {
   @override
   Future<void> updateProduct(String id) {
     // TODO: implement updateProduct
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> createProduct({
+    required String id,
+    required String name,
+    required double price,
+    required String imageUrl,
+  }) {
+    // TODO: implement createProduct
     throw UnimplementedError();
   }
 }

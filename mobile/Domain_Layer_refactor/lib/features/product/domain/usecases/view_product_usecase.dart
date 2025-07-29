@@ -13,6 +13,6 @@ class ViewProductUsecase implements UseCase<Product, ProductParams> {
   @override
   Future<Either<Failure, Product>> call(ProductParams params) async {
     final product = await repository.getProductById(params.id);
-    return Right(product);
+    return product;
   }
 }
