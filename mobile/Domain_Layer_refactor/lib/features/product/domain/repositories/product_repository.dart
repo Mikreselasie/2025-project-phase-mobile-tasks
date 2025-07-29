@@ -12,5 +12,11 @@ abstract class ProductRepository {
     required String imageUrl,
   });
   Future<void> deleteProduct(String id);
-  Future<void> updateProduct(String id);
+  Future<void> updateProduct({
+    required String id,
+    required String name,
+    required double price,
+    required String imageUrl,
+    required String description,
+  });
 }

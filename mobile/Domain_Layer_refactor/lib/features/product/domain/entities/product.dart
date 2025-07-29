@@ -1,5 +1,5 @@
 class Product {
-  String id;
+  String productId;
   String name;
   String description;
   String imageURL;
@@ -10,6 +10,6 @@ class Product {
     required this.description,
     required this.price,
     required this.imageURL,
-    required this.id,
+    required this.productId,
   });
 }

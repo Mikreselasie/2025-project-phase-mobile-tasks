@@ -8,10 +8,18 @@ import '../../domain/repositories/product_repository.dart';
 
 class ProductRepositoryImpl implements ProductRepository {
   late final LocalDataSource localDataSource;
+  List<ProductModel> productList = [];
   @override
-  Future<void> deleteProduct(String id) {
-    // TODO: implement deleteProduct
-    throw UnimplementedError();
+  Future<void> deleteProduct(String id) async {
+    final productIndex = productList.indexWhere(
+      (product) => product.productId == id,
+    );
+
+    if (productIndex != -1) {
+      productList.removeAt(productIndex); // Delete the product by index
+    } else {
+      throw Exception("Product not found!");
+    }
   }
 
   @override
@@ -36,7 +44,13 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<void> updateProduct(String id) {
+  Future<void> updateProduct({
+    required String id,
+    required String name,
+    required double price,
+    required String imageUrl,
+    required String description,
+  }) async {
     // TODO: implement updateProduct
     throw UnimplementedError();
   }
