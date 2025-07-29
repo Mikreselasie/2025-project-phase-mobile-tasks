@@ -1,20 +1,11 @@
+import 'package:domain_layer_refactor/features/product/domain/entities/product.dart';
 import 'package:equatable/equatable.dart';
 
 class CreateProductParams extends Equatable {
-  final String id;
-  final String name;
-  final double price;
-  final String description;
-  final String imageUrl;
+  final Product product;
 
-  const CreateProductParams({
-    required this.id,
-    required this.name,
-    required this.price,
-    required this.imageUrl,
-    required this.description,
-  });
+  const CreateProductParams({required this.product});
 
   @override
-  List<Object?> get props => [id, name, price, imageUrl, description];
+  List<Object?> get props => [product];
 }

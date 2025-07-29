@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:domain_layer_refactor/core/errors/failures.dart';
-import 'package:domain_layer_refactor/features/product/data/datasources/local_data_source.dart';
-import 'package:domain_layer_refactor/features/product/data/models/product_model.dart';
 
+import '../../../../core/errors/failures.dart';
 import '../../domain/entities/product.dart';
 import '../../domain/repositories/product_repository.dart';
+import '../datasources/local_data_source.dart';
+import '../models/product_model.dart';
 
 class ProductRepositoryImpl implements ProductRepository {
   late final LocalDataSource localDataSource;
@@ -56,12 +56,7 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<void> createProduct({
-    required String id,
-    required String name,
-    required double price,
-    required String imageUrl,
-  }) {
+  Future<Either<Failure, Product>> createProduct({required Product product}) {
     // TODO: implement createProduct
     throw UnimplementedError();
   }
