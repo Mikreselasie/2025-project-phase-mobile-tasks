@@ -1,0 +1,7 @@
+{
+    "name": "Shoe",
+    "description": "Good Shoe"
+    ,"price":123.45,
+    "imageURL": "https://product.image.com/id",
+    "productId": "shoe1"
+}
