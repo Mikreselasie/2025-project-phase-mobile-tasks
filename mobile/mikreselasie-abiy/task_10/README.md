@@ -70,9 +70,5 @@ flutter pub get
 flutter run
 ```
 
-This will launch the application on your connected device or emulator.
 
----
-
-For best practices, each navigation action should use `Navigator.push`, `Navigator.pop`, or `Navigator.pushNamed` depending on your routing setup.
 
