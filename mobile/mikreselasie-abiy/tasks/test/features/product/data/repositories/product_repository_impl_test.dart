@@ -12,7 +12,7 @@ import 'package:mockito/mockito.dart';
 import 'product_repository_impl_test.mocks.dart';
 
 @GenerateNiceMocks([
-  MockSpec<RemoteDataSource>(as: #MockProductRemoteDataSource),
+  MockSpec<ProductsRemoteDataSource>(as: #MockProductRemoteDataSource),
   MockSpec<LocalDataSource>(as: #MockProductLocalDataSource),
   MockSpec<NetworkInfo>(as: #MockNetworkInfo),
 ])
@@ -35,11 +35,11 @@ void main() {
 
   const tProductId = 'id';
   final tProduct = ProductModel(
-    productId: tProductId,
+    id: tProductId,
     name: 'name',
     description: 'description',
     price: 123.45,
-    imageURL: 'https://product.image.com/id',
+    imageUrl: 'https://product.image.com/id',
   );
   final tProducts = [tProduct];
   final tProductsAsMap = [
@@ -137,7 +137,7 @@ void main() {
       test('should create product from remote data source', () async {
         when(
           mockProductRemoteDataSource.createProductOnServer(tProduct),
-        ).thenAnswer((_) async => tProductsAsMap[0]);
+        ).thenAnswer((_) async => tProduct);
 
         final result = await productRepository.createProduct(product: tProduct);
 
@@ -282,8 +282,15 @@ void main() {
       });
 
       test('should not call remote data source', () async {
+        // arrange
+        when(
+          mockProductLocalDataSource.getProductById(tProductId),
+        ).thenAnswer((_) async => tProduct); // ✅ This is the fix
+
+        // act
         await productRepository.getProductById(tProductId);
 
+        // assert
         verifyZeroInteractions(mockProductRemoteDataSource);
       });
 

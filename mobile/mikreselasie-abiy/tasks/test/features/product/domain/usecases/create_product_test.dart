@@ -22,11 +22,11 @@ void main() {
   test('should create product using the repository', () async {
     // arrange
     final tProduct = Product(
-      productId: '',
+      id: '',
       name: 'name',
       description: 'description',
       price: 123.45,
-      imageURL: 'https://product.image.com/id',
+      imageUrl: 'https://product.image.com/id',
     );
 
     when(

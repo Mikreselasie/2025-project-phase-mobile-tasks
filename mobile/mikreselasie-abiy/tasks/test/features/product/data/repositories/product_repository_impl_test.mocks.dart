@@ -39,38 +39,11 @@ class _FakeProduct_1 extends _i1.SmartFake implements _i3.Product {
     : super(parent, parentInvocation);
 }
 
-/// A class which mocks [RemoteDataSource].
+/// A class which mocks [ProductsRemoteDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockProductRemoteDataSource extends _i1.Mock
-    implements _i4.RemoteDataSource {
-  @override
-  _i5.Future<List<Map<String, dynamic>>> fetchProductsFromServer() =>
-      (super.noSuchMethod(
-            Invocation.method(#fetchProductsFromServer, []),
-            returnValue: _i5.Future<List<Map<String, dynamic>>>.value(
-              <Map<String, dynamic>>[],
-            ),
-            returnValueForMissingStub:
-                _i5.Future<List<Map<String, dynamic>>>.value(
-                  <Map<String, dynamic>>[],
-                ),
-          )
-          as _i5.Future<List<Map<String, dynamic>>>);
-
-  @override
-  _i5.Future<Map<String, dynamic>> fetchProductById(String? id) =>
-      (super.noSuchMethod(
-            Invocation.method(#fetchProductById, [id]),
-            returnValue: _i5.Future<Map<String, dynamic>>.value(
-              <String, dynamic>{},
-            ),
-            returnValueForMissingStub: _i5.Future<Map<String, dynamic>>.value(
-              <String, dynamic>{},
-            ),
-          )
-          as _i5.Future<Map<String, dynamic>>);
-
+    implements _i4.ProductsRemoteDataSource {
   @override
   _i5.Future<_i2.ProductModel> getProductById(String? id) =>
       (super.noSuchMethod(
@@ -91,28 +64,46 @@ class MockProductRemoteDataSource extends _i1.Mock
           as _i5.Future<_i2.ProductModel>);
 
   @override
-  _i5.Future<Map<String, dynamic>> createProductOnServer(
+  _i5.Future<_i2.ProductModel> createProductOnServer(
     _i2.ProductModel? product,
   ) =>
       (super.noSuchMethod(
             Invocation.method(#createProductOnServer, [product]),
-            returnValue: _i5.Future<Map<String, dynamic>>.value(
-              <String, dynamic>{},
+            returnValue: _i5.Future<_i2.ProductModel>.value(
+              _FakeProductModel_0(
+                this,
+                Invocation.method(#createProductOnServer, [product]),
+              ),
             ),
-            returnValueForMissingStub: _i5.Future<Map<String, dynamic>>.value(
-              <String, dynamic>{},
+            returnValueForMissingStub: _i5.Future<_i2.ProductModel>.value(
+              _FakeProductModel_0(
+                this,
+                Invocation.method(#createProductOnServer, [product]),
+              ),
             ),
           )
-          as _i5.Future<Map<String, dynamic>>);
+          as _i5.Future<_i2.ProductModel>);
 
   @override
-  _i5.Future<void> updateProductOnServer(_i2.ProductModel? product) =>
+  _i5.Future<_i2.ProductModel> updateProductOnServer(
+    _i2.ProductModel? product,
+  ) =>
       (super.noSuchMethod(
             Invocation.method(#updateProductOnServer, [product]),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
+            returnValue: _i5.Future<_i2.ProductModel>.value(
+              _FakeProductModel_0(
+                this,
+                Invocation.method(#updateProductOnServer, [product]),
+              ),
+            ),
+            returnValueForMissingStub: _i5.Future<_i2.ProductModel>.value(
+              _FakeProductModel_0(
+                this,
+                Invocation.method(#updateProductOnServer, [product]),
+              ),
+            ),
           )
-          as _i5.Future<void>);
+          as _i5.Future<_i2.ProductModel>);
 
   @override
   _i5.Future<void> deleteProductFromServer(String? id) =>
@@ -184,7 +175,7 @@ class MockProductLocalDataSource extends _i1.Mock
           as _i5.Future<void>);
 
   @override
-  _i5.Future<void> cacheProduct(_i3.Product? product) =>
+  _i5.Future<void> cacheProduct(_i2.ProductModel? product) =>
       (super.noSuchMethod(
             Invocation.method(#cacheProduct, [product]),
             returnValue: _i5.Future<void>.value(),

@@ -23,11 +23,11 @@ void main() {
     // arrange
     const tId = 'id';
     final tProduct = Product(
-      productId: tId,
+      id: tId,
       name: 'name',
       description: 'description',
       price: 123.45,
-      imageURL: 'https://product.image.com/id',
+      imageUrl: 'https://product.image.com/id',
     );
 
     when(

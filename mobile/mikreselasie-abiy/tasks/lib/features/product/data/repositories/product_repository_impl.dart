@@ -11,7 +11,7 @@ import '../models/product_model.dart';
 
 class ProductRepositoryImpl implements ProductRepository {
   final LocalDataSource localDataSource;
-  final RemoteDataSource remoteDataSource;
+  final ProductsRemoteDataSource remoteDataSource;
   final NetworkInfo networkInfo;
   List<ProductModel> productList = [];
 
@@ -25,7 +25,7 @@ class ProductRepositoryImpl implements ProductRepository {
     if (await networkInfo.isConnected) {
       try {
         final productIndex = productList.indexWhere(
-          (product) => product.productId == id,
+          (product) => product.id == id,
         );
 
         if (productIndex != -1) {
@@ -113,7 +113,7 @@ class ProductRepositoryImpl implements ProductRepository {
   }) async {
     if (await networkInfo.isConnected) {
       try {
-        final productJson = ProductModel.fromEntity(product).toJSON();
+        final productJson = ProductModel.fromEntity(product).toJson();
         await remoteDataSource.createProductOnServer(product as ProductModel);
         await localDataSource.saveProduct(productJson);
         return Right(product);
