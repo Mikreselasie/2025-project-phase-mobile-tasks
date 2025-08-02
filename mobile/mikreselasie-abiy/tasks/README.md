@@ -26,7 +26,7 @@ abstract class ProductLocalDataSource {
   Future<void> saveProduct(Map<String, dynamic> productJson);
   Future<void> updateProduct(ProductModel product);
   Future<void> deleteProduct(String id);
-}
+}```
 
 # 🛍️ Task 10: Flutter E-commerce Project with Clean architecture
 
