@@ -184,7 +184,7 @@ class MockProductLocalDataSource extends _i1.Mock
           as _i5.Future<void>);
 
   @override
-  _i5.Future<void> cacheProduct(_i3.Product? product) =>
+  _i5.Future<void> cacheProduct(_i2.ProductModel? product) =>
       (super.noSuchMethod(
             Invocation.method(#cacheProduct, [product]),
             returnValue: _i5.Future<void>.value(),
