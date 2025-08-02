@@ -1,3 +1,33 @@
+# Task 14 | 🛒 Product Local Data Source (Flutter / Dart)
+
+This module handles local caching of products using `SharedPreferences`. It provides a simple interface for saving, retrieving, updating, and deleting product data stored locally on the device.
+
+---
+
+## 📦 Features
+
+- Cache a list of `ProductModel`s.
+- Retrieve all cached products.
+- Save a single product via JSON.
+- Update an existing product.
+- Delete a product by ID.
+- Unit tested using `Mockito`.
+
+---
+
+## 🧱 Structure
+
+```dart
+abstract class ProductLocalDataSource {
+  Future<void> cacheProducts(List<ProductModel> products);
+  Future<List<ProductModel>> getAllCachedProducts();
+  Future<ProductModel> getProductById(String id);
+  Future<void> cacheProduct(ProductModel product);
+  Future<void> saveProduct(Map<String, dynamic> productJson);
+  Future<void> updateProduct(ProductModel product);
+  Future<void> deleteProduct(String id);
+}
+
 # 🛍️ Task 10: Flutter E-commerce Project with Clean architecture
 
 ## 🚀 Overview
