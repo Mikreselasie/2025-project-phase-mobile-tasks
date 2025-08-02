@@ -6,9 +6,9 @@
 import 'dart:async' as _i5;
 
 import 'package:ecommerce/core/platform/network_info.dart' as _i7;
-import 'package:ecommerce/features/product/data/data_sources/local_data_source.dart'
+import 'package:ecommerce/features/product/data/data_sources/products_local_data_source.dart'
     as _i6;
-import 'package:ecommerce/features/product/data/data_sources/remote_data_source.dart'
+import 'package:ecommerce/features/product/data/data_sources/products_remote_data_source.dart'
     as _i4;
 import 'package:ecommerce/features/product/data/models/product_model.dart'
     as _i2;

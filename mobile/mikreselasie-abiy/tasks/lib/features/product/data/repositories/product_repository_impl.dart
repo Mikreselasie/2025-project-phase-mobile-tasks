@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce/core/errors/exceptions.dart';
 import 'package:ecommerce/core/platform/network_info.dart';
-import 'package:ecommerce/features/product/data/data_sources/remote_data_source.dart';
+import 'package:ecommerce/features/product/data/data_sources/products_remote_data_source.dart';
 
 import '../../../../core/errors/failures.dart';
 import '../../domain/entities/product.dart';
 import '../../domain/repositories/product_repository.dart';
-import '../data_sources/local_data_source.dart';
+import '../data_sources/products_local_data_source.dart';
 import '../models/product_model.dart';
 
 class ProductRepositoryImpl implements ProductRepository {
@@ -81,7 +81,7 @@ class ProductRepositoryImpl implements ProductRepository {
     } else {
       try {
         final product = await localDataSource.getProductById(id);
-        localDataSource.cacheProduct(product);
+        localDataSource.cacheProduct(product as ProductModel);
         return Right(product);
       } on CacheException catch (e) {
         return Left(CacheFailure(e.message));
