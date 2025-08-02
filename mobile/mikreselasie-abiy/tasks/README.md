@@ -1,3 +1,39 @@
+# Task 15 | 🛒 Product Remote Data Source
+
+This module handles all HTTP requests to the product-related endpoints in your eCommerce app.
+
+## 📦 Class: `ProductRemoteDataSourceImpl`
+
+Implements `ProductsRemoteDataSource` using the `http` package. Communicates with the backend to perform CRUD operations.
+
+### ✅ Supported Methods
+
+| Method                      | HTTP | Description                    |
+|----------------------------|------|--------------------------------|
+| `getAllProducts()`         | GET  | Fetch all products             |
+| `getProductById(id)`       | GET  | Fetch product by ID            |
+| `createProductOnServer()`  | POST | Create a new product           |
+| `updateProductOnServer()`  | PUT  | Update a product by ID         |
+| `deleteProductFromServer()`| DEL  | Delete a product by ID         |
+| `fetchProductById(id)`     | GET  | (Alias) Fetch product by ID    |
+
+All responses are mapped to `ProductModel`. Server errors throw a `ServerException`.
+
+## 🧪 Tests
+
+Located in:  test/features/product/data/data_sources/product_remote_data_source_impl_test.dart
+
+Uses:
+- `mockito` for mocking `http.Client`
+- JSON fixtures (`product.json`, `products.json`)
+- `flutter_test` for unit assertions
+
+### Run tests
+
+```bash
+flutter pub run build_runner build
+flutter test
+
 # Task 14 | 🛒 Product Local Data Source (Flutter / Dart)
 
 This module handles local caching of products using `SharedPreferences`. It provides a simple interface for saving, retrieving, updating, and deleting product data stored locally on the device.

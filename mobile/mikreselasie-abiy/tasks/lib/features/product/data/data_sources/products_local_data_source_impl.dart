@@ -16,14 +16,14 @@ class LocalDataSourceImpl extends LocalDataSource {
   Future<void> cacheProduct(ProductModel product) {
     return sharedPreferences.setString(
       CACHED_PRODUCTS,
-      json.encode(product.toJSON()),
+      json.encode(product.toJson()),
     );
   }
 
   @override
   Future<void> cacheProducts(List<ProductModel> products) async {
     final productsJsonList = products
-        .map((product) => product.toJSON())
+        .map((product) => product.toJson())
         .toList();
     final jsonString = json.encode(productsJsonList);
     final success = await sharedPreferences.setString(
@@ -42,16 +42,16 @@ class LocalDataSourceImpl extends LocalDataSource {
 
     if (productsJson != null) {
       final productList = (jsonDecode(productsJson) as List)
-          .map((e) => ProductModel.fromJSON(e))
+          .map((e) => ProductModel.fromJson(e))
           .toList();
 
       final updatedList = productList
-          .where((product) => product.productId != id)
+          .where((product) => product.id != id)
           .toList();
 
       final success = await sharedPreferences.setString(
         CACHED_PRODUCTS,
-        json.encode(updatedList.map((e) => e.toJSON()).toList()),
+        json.encode(updatedList.map((e) => e.toJson()).toList()),
       );
 
       if (!success) {
@@ -69,7 +69,7 @@ class LocalDataSourceImpl extends LocalDataSource {
     final productsJson = sharedPreferences.getString(CACHED_PRODUCTS);
     if (productsJson != null) {
       final products = (jsonDecode(productsJson) as List)
-          .map((e) => ProductModel.fromJSON(e))
+          .map((e) => ProductModel.fromJson(e))
           .toList();
       return Future.value(products);
     } else {
@@ -78,22 +78,12 @@ class LocalDataSourceImpl extends LocalDataSource {
   }
 
   @override
-  Future<Product> getProductById(String productId) {
-    final productsJson = sharedPreferences.getString(CACHED_PRODUCTS);
-    if (productsJson != null) {
-      final products = (jsonDecode(productsJson) as List)
-          .map((e) => ProductModel.fromJSON(e))
-          .toList();
-
-      for (final product in products) {
-        if (product.productId == productId) {
-          return Future.value(product);
-        }
-      }
-
-      throw const CacheException(message: 'Product not found in cache');
+  Future<ProductModel> getProductById(String id) async {
+    final productJson = sharedPreferences.getString(CACHED_PRODUCTS);
+    if (productJson != null) {
+      return await ProductModel.fromJson(jsonDecode(productJson));
     } else {
-      throw const CacheException(message: 'Products not found in cache');
+      throw const CacheException(message: 'Product not found in cache');
     }
   }
 
@@ -126,12 +116,10 @@ class LocalDataSourceImpl extends LocalDataSource {
 
     if (productsJson != null) {
       final products = (jsonDecode(productsJson) as List)
-          .map((e) => ProductModel.fromJSON(e))
+          .map((e) => ProductModel.fromJson(e))
           .toList();
 
-      final index = products.indexWhere(
-        (p) => p.productId == product.productId,
-      );
+      final index = products.indexWhere((p) => p.id == product.id);
 
       if (index == -1) {
         throw const CacheException(message: 'Product not found in cache');
@@ -141,7 +129,7 @@ class LocalDataSourceImpl extends LocalDataSource {
 
       final success = await sharedPreferences.setString(
         CACHED_PRODUCTS,
-        json.encode(products.map((e) => e.toJSON()).toList()),
+        json.encode(products.map((e) => e.toJson()).toList()),
       );
 
       if (!success) {
