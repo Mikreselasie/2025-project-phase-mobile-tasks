@@ -1,9 +1,5 @@
-import 'dart:convert';
-
-import 'package:ecommerce/core/errors/exceptions.dart';
-import 'package:ecommerce/features/product/data/models/product_model.dart';
-import 'package:ecommerce/features/product/domain/entities/product.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '../models/product_model.dart';
+import '../../domain/entities/product.dart';
 
 abstract class LocalDataSource {
   Future<List<ProductModel>> getAllCachedProducts();

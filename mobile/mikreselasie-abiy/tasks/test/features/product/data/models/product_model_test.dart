@@ -13,7 +13,8 @@ void main() {
     name: "HP Victus 15",
     description: "Personal computer",
     price: 123.45,
-    imageUrl: "https://www.omen.com/image.png",
+    imageUrl:
+        "https://www.omen.com/content/dam/sites/omen/worldwide/laptops/2022-victus-15-intel/Hero%20Image%203.png",
     id: "acadea83-1b1b-4b1b-8b1b-1b1b1b1b1b1b",
   );
 
@@ -34,7 +35,8 @@ void main() {
       "name": "HP Victus 15",
       "description": "Personal computer",
       "price": 123.45,
-      "imageUrl": "https://www.omen.com/image.png",
+      "imageUrl":
+          "https://www.omen.com/content/dam/sites/omen/worldwide/laptops/2022-victus-15-intel/Hero%20Image%203.png",
       "id": "acadea83-1b1b-4b1b-8b1b-1b1b1b1b1b1b",
     };
 

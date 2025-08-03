@@ -33,6 +33,22 @@ class ProductModel extends Product with EquatableMixin {
     );
   }
 
+  ProductModel copyWith({
+    String? id,
+    String? name,
+    String? description,
+    double? price,
+    String? imageUrl,
+  }) {
+    return ProductModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      description: description ?? this.description,
+      price: price ?? this.price,
+      imageUrl: imageUrl ?? this.imageUrl,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       "name": name,

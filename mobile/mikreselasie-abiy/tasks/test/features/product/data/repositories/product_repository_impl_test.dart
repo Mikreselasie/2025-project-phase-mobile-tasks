@@ -163,8 +163,6 @@ void main() {
 
     group('deleteProduct', () {
       test('should delete product from remote data source', () async {
-        productRepository.productList.add(tProduct);
-
         await productRepository.deleteProduct(tProductId);
 
         verify(mockProductRemoteDataSource.deleteProductFromServer(tProductId));
@@ -173,9 +171,6 @@ void main() {
       test(
         'should return server failure when remote data source throws server exception',
         () async {
-          // ✅ Add the product into memory so the delete logic proceeds
-          productRepository.productList.add(tProduct);
-
           // ✅ Mock the remote call to throw the exception
           when(
             mockProductRemoteDataSource.deleteProductFromServer(tProductId),

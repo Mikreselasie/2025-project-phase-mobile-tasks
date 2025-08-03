@@ -1,4 +1,4 @@
-import 'package:ecommerce/features/product/data/models/product_model.dart';
+import '../models/product_model.dart';
 
 abstract class ProductsRemoteDataSource {
   Future<ProductModel> getProductById(String id);
