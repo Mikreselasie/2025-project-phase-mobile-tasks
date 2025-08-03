@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ecommerce/core/errors/exceptions.dart';
-import 'package:ecommerce/features/product/data/models/product_model.dart';
+import '../../../../core/errors/exceptions.dart';
+import '../models/product_model.dart';
 import 'products_local_data_source.dart';
 
 const String _cachedProductsKey = "CACHED_PRODUCTS";

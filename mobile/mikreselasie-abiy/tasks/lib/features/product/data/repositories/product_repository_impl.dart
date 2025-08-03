@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
-import 'package:ecommerce/core/errors/exceptions.dart';
-import 'package:ecommerce/core/errors/failures.dart';
-import 'package:ecommerce/core/platform/network_info.dart';
-import 'package:ecommerce/features/product/data/data_sources/products_local_data_source.dart';
-import 'package:ecommerce/features/product/data/data_sources/products_remote_data_source.dart';
-import 'package:ecommerce/features/product/data/models/product_model.dart';
-import 'package:ecommerce/features/product/domain/entities/product.dart';
-import 'package:ecommerce/features/product/domain/repositories/product_repository.dart';
+import '../../../../core/errors/exceptions.dart';
+import '../../../../core/errors/failures.dart';
+import '../../../../core/platform/network_info.dart';
+import '../data_sources/products_local_data_source.dart';
+import '../data_sources/products_remote_data_source.dart';
+import '../models/product_model.dart';
+import '../../domain/entities/product.dart';
+import '../../domain/repositories/product_repository.dart';
 
 class ProductRepositoryImpl implements ProductRepository {
   final LocalDataSource localDataSource;
@@ -87,7 +87,7 @@ class ProductRepositoryImpl implements ProductRepository {
       onRemote: () async {
         final model = ProductModel.fromEntity(product);
         final updated = await remoteDataSource.updateProductOnServer(model);
-        await localDataSource.updateProduct(updated);
+        await localDataSource.cacheProduct(updated);
         return updated;
       },
       onLocal: null,
