@@ -1,42 +1,41 @@
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce/core/errors/exceptions.dart';
+import 'package:ecommerce/core/errors/failures.dart';
 import 'package:ecommerce/core/platform/network_info.dart';
+import 'package:ecommerce/features/product/data/data_sources/products_local_data_source.dart';
 import 'package:ecommerce/features/product/data/data_sources/products_remote_data_source.dart';
-
-import '../../../../core/errors/failures.dart';
-import '../../domain/entities/product.dart';
-import '../../domain/repositories/product_repository.dart';
-import '../data_sources/products_local_data_source.dart';
-import '../models/product_model.dart';
+import 'package:ecommerce/features/product/data/models/product_model.dart';
+import 'package:ecommerce/features/product/domain/entities/product.dart';
+import 'package:ecommerce/features/product/domain/repositories/product_repository.dart';
 
 class ProductRepositoryImpl implements ProductRepository {
   final LocalDataSource localDataSource;
   final ProductsRemoteDataSource remoteDataSource;
   final NetworkInfo networkInfo;
-  List<ProductModel> productList = [];
 
   ProductRepositoryImpl({
     required this.localDataSource,
     required this.remoteDataSource,
     required this.networkInfo,
   });
-  @override
-  Future<Either<Failure, Unit>> deleteProduct(String id) async {
+
+  Future<Either<Failure, T>> _handleRequest<T>({
+    required Future<T> Function() onRemote,
+    required Future<T> Function()? onLocal,
+  }) async {
     if (await networkInfo.isConnected) {
       try {
-        final productIndex = productList.indexWhere(
-          (product) => product.id == id,
-        );
-
-        if (productIndex != -1) {
-          productList.removeAt(productIndex);
-          remoteDataSource.deleteProductFromServer(id);
-          return const Right(unit);
-        } else {
-          return Left(NotFoundFailure("Not Found"));
-        }
+        final result = await onRemote();
+        return Right(result);
       } on ServerException catch (e) {
         return Left(ServerFailure(e.message));
+      }
+    } else if (onLocal != null) {
+      try {
+        final result = await onLocal();
+        return Right(result);
+      } on CacheException catch (e) {
+        return Left(CacheFailure(e.message));
       }
     } else {
       return Left(NetworkFailure());
@@ -44,84 +43,66 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<Either<Failure, List<Product>>> getAllProducts() async {
-    if (await networkInfo.isConnected) {
-      try {
+  Future<Either<Failure, List<Product>>> getAllProducts() {
+    return _handleRequest<List<Product>>(
+      onRemote: () async {
         final products = await remoteDataSource.getAllProducts();
-        localDataSource.cacheProducts(products);
-        return Right(products);
-      } on ServerException catch (e) {
-        return Left(ServerFailure(e.message));
-      } catch (e) {
-        return Left(ServerFailure("Unexpected error"));
-      }
-    } else {
-      try {
-        final products = await localDataSource.getAllCachedProducts();
-
-        return Right(products);
-      } on CacheException catch (e) {
-        return Left(CacheFailure(e.message));
-      }
-    }
+        await localDataSource.cacheProducts(products);
+        return products;
+      },
+      onLocal: () => localDataSource.getAllCachedProducts(),
+    );
   }
 
   @override
-  Future<Either<Failure, Product>> getProductById(String id) async {
-    if (await networkInfo.isConnected) {
-      try {
+  Future<Either<Failure, Product>> getProductById(String id) {
+    return _handleRequest<Product>(
+      onRemote: () async {
         final product = await remoteDataSource.getProductById(id);
-        localDataSource.cacheProduct(product);
-        return Right(product);
-      } on ServerException catch (e) {
-        return (Left(ServerFailure(e.message)));
-      } catch (e) {
-        return Left(CacheFailure("Cache Not Found Error"));
-      }
-    } else {
-      try {
-        final product = await localDataSource.getProductById(id);
-        localDataSource.cacheProduct(product as ProductModel);
-        return Right(product);
-      } on CacheException catch (e) {
-        return Left(CacheFailure(e.message));
-      }
-    }
+        await localDataSource.cacheProduct(product);
+        return product;
+      },
+      onLocal: () => localDataSource.getProductById(id),
+    );
   }
 
   @override
-  Future<Either<Failure, Product>> updateProduct({
-    required Product product,
-  }) async {
-    if (await networkInfo.isConnected) {
-      try {
-        final productJson = ProductModel.fromEntity(product);
-        await remoteDataSource.updateProductOnServer(productJson);
-        await localDataSource.cacheProduct(productJson);
-        return Right(product);
-      } on ServerException catch (e) {
-        return Left(ServerFailure(e.message));
-      }
-    } else {
-      return Left(NetworkFailure());
-    }
+  Future<Either<Failure, Product>> createProduct({required Product product}) {
+    return _handleRequest<Product>(
+      onRemote: () async {
+        final productModel = ProductModel.fromEntity(product);
+        final created = await remoteDataSource.createProductOnServer(
+          productModel,
+        );
+        await localDataSource.saveProduct(created.toJson());
+        return created;
+      },
+      onLocal: null,
+    );
   }
 
   @override
-  Future<Either<Failure, Product>> createProduct({
-    required Product product,
-  }) async {
-    if (await networkInfo.isConnected) {
-      try {
-        final productJson = ProductModel.fromEntity(product).toJson();
-        await remoteDataSource.createProductOnServer(product as ProductModel);
-        await localDataSource.saveProduct(productJson);
-        return Right(product);
-      } on ServerException catch (e) {
-        return Left(ServerFailure(e.message));
-      }
-    } else {
-      return Left(NetworkFailure());
-    }
+  Future<Either<Failure, Product>> updateProduct({required Product product}) {
+    return _handleRequest<Product>(
+      onRemote: () async {
+        final model = ProductModel.fromEntity(product);
+        final updated = await remoteDataSource.updateProductOnServer(model);
+        await localDataSource.updateProduct(updated);
+        return updated;
+      },
+      onLocal: null,
+    );
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteProduct(String id) {
+    return _handleRequest<Unit>(
+      onRemote: () async {
+        await remoteDataSource.deleteProductFromServer(id);
+        await localDataSource.deleteProduct(id);
+        return unit;
+      },
+      onLocal: null,
+    );
   }
 }
