@@ -42,15 +42,6 @@ void main() {
     imageUrl: 'https://product.image.com/id',
   );
   final tProducts = [tProduct];
-  final tProductsAsMap = [
-    {
-      "productId": "id",
-      "name": 'name',
-      "description": "description",
-      "price": 123.45,
-      "imageURL": "https://product.image.com/id",
-    },
-  ];
 
   group('when network is available', () {
     setUp(() {

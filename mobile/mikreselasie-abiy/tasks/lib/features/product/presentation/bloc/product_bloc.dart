@@ -10,10 +10,9 @@ import 'package:ecommerce/features/product/domain/usecases/delete_product_params
 import 'package:ecommerce/features/product/domain/usecases/get_all_products.dart';
 import 'package:ecommerce/features/product/domain/usecases/get_product.dart';
 import 'package:ecommerce/features/product/domain/usecases/get_product_params.dart';
-import 'package:ecommerce/features/product/domain/usecases/product_params.dart';
 import 'package:ecommerce/features/product/domain/usecases/update_product.dart';
 import 'package:ecommerce/features/product/domain/usecases/update_product_params.dart';
-import 'package:equatable/equatable.dart';
+
 import 'product_event.dart';
 import 'product_state.dart';
 
