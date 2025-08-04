@@ -1,3 +1,21 @@
+# Task 17 | Product Bloc Feature – Unit Testing & Fixes
+
+This module covers the implementation and unit testing of the Product BLoC for an e-commerce app.
+
+## ✅ Features Covered
+
+- Load all products
+- Get single product
+- Create a product
+- Update a product
+- Delete a product
+
+## 🧪 Testing with `bloc_test` & `mockito`
+
+- Tests are written using `bloc_test` for all events and state transitions.
+- `mockito` is used to stub domain layer use cases like `GetAllProducts`, `CreateProduct`, etc.
+
+
 # Task 15 | 🛒 Product Remote Data Source
 
 This module handles all HTTP requests to the product-related endpoints in your eCommerce app.
