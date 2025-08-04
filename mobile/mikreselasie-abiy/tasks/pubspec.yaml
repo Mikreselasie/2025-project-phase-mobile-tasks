@@ -8,11 +8,14 @@ environment:
   sdk: ^3.8.1
 
 dependencies:
+  bloc: ^9.0.0
+  bloc_test: ^10.0.0
   cupertino_icons: ^1.0.8
   dartz: ^0.10.1
   equatable: ^2.0.7
   flutter:
     sdk: flutter
+  flutter_bloc: ^9.1.1
   http_client_helper: ^3.0.0
   image_picker: ^1.0.4
   internet_connection_checker_plus: ^2.7.2
