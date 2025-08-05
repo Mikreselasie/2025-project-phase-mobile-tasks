@@ -27,7 +27,10 @@ class ProductModel extends Product with EquatableMixin {
     return ProductModel(
       name: json["name"],
       description: json["description"],
-      price: json["price"],
+      price: (json['price'] is int)
+          ? (json['price'] as int)
+                .toDouble() // Convert int to double if necessary
+          : json['price'] as double,
       imageUrl: json["imageUrl"],
       id: json["id"],
     );

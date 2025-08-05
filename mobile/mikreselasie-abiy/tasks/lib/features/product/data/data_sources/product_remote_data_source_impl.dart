@@ -8,10 +8,10 @@ import '../models/product_model.dart';
 
 class ProductRemoteDataSourceImpl implements ProductsRemoteDataSource {
   final http.Client client;
-  final String _baseUrl;
+  final String _baseUrl =
+      "https://g5-flutter-learning-path-be-tvum.onrender.com/api/v1/products";
 
-  ProductRemoteDataSourceImpl({required this.client})
-    : _baseUrl = '$baseUrl/products';
+  ProductRemoteDataSourceImpl({required this.client});
 
   Future<http.Response> _sendRequest(
     Future<http.Response> Function() request,
@@ -78,7 +78,8 @@ class ProductRemoteDataSourceImpl implements ProductsRemoteDataSource {
     final response = await _sendRequest(() => client.get(Uri.parse(_baseUrl)));
 
     return _parseJson(response.body, (json) {
-      return (json as List).map((e) => ProductModel.fromJson(e)).toList();
+      final productsJson = (json['data'] as List);
+      return productsJson.map((e) => ProductModel.fromJson(e)).toList();
     });
   }
 

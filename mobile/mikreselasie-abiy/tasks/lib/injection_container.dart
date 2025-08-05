@@ -1,9 +1,11 @@
 // lib/injection_container.dart
+import 'package:ecommerce/core/platform/network_info.dart';
 import 'package:ecommerce/features/product/data/data_sources/product_remote_data_source_impl.dart';
 import 'package:ecommerce/features/product/data/data_sources/products_local_data_source.dart';
 import 'package:ecommerce/features/product/data/data_sources/products_local_data_source_impl.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'features/product/data/data_sources/products_remote_data_source.dart';
@@ -59,5 +61,13 @@ Future<void> init() async {
   // Local Data Source
   sl.registerLazySingleton<LocalDataSource>(
     () => LocalDataSourceImpl(sharedPreferences: sl()),
+  );
+
+  // External
+  sl.registerLazySingleton<InternetConnection>(() => InternetConnection());
+
+  // Core
+  sl.registerLazySingleton<NetworkInfo>(
+    () => NetworkInfoImpl(connetctionChecker: sl()),
   );
 }
