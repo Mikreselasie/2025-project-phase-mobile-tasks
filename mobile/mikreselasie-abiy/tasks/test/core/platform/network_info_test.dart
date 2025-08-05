@@ -15,7 +15,7 @@ void main() {
 
   setUp(() {
     mockInternetConnection = MockInternetConnection();
-    networkInfo = NetworkInfoImpl(mockInternetConnection);
+    networkInfo = NetworkInfoImpl(connetctionChecker: mockInternetConnection);
   });
 
   group('isConnected', () {
