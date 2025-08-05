@@ -2,9 +2,7 @@ import 'dart:convert';
 
 import 'package:ecommerce/features/product/data/models/product_model.dart';
 import 'package:ecommerce/features/product/domain/entities/product.dart';
-import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
 
 import '../../../../core/fixtures/fixiture_reader.dart';
 

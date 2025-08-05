@@ -1,3 +1,36 @@
+# Task 18 | 🧩 Dependency Injection Setup (get_it)
+
+This project uses [`get_it`](https://pub.dev/packages/get_it) for dependency injection to manage the creation and access of services, data sources, repositories, and use cases across the app.
+
+## 🔧 Setup
+
+The `injection_container.dart` file handles all service registrations.
+
+### 📄 File: `lib/injection_container.dart`
+
+## 💡 Notes
+  - registerFactory is used for objects like Blocs that need a new instance each time.
+  - registerLazySingleton is used for long-living services like repositories and use cases.
+  - Use sl<T>() to retrieve dependencies where needed.
+
+# Task 17 | Product Bloc Feature – Unit Testing & Fixes
+
+This module covers the implementation and unit testing of the Product BLoC for an e-commerce app.
+
+## ✅ Features Covered
+
+- Load all products
+- Get single product
+- Create a product
+- Update a product
+- Delete a product
+
+## 🧪 Testing with `bloc_test` & `mockito`
+
+- Tests are written using `bloc_test` for all events and state transitions.
+- `mockito` is used to stub domain layer use cases like `GetAllProducts`, `CreateProduct`, etc.
+
+
 # Task 15 | 🛒 Product Remote Data Source
 
 This module handles all HTTP requests to the product-related endpoints in your eCommerce app.
