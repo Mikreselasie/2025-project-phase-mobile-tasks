@@ -1,3 +1,41 @@
+# Task 20: Consume Bloc for eCommerce
+
+This is a Flutter-based mobile application that allows users to **create**, **read**, **update**, and **delete (CRUD)** product listings in an e-commerce setting. It includes support for image uploads, form handling, and state management using Bloc.
+
+---
+
+## 🚀 Features
+
+- 📦 **Product CRUD**:
+  - Create new products with name, category, price, description, and image.
+  - Update existing product details.
+  - Delete products with confirmation.
+  - View a list of all products.
+
+- 🖼 **Image Picker**:
+  - Select product images from local files (uses `image_picker`).
+  - Preview selected images.
+
+- 🔄 **State Management**:
+  - Bloc (`flutter_bloc`) for managing product creation, update, delete, and list fetching.
+
+- 🧠 **Routing with Arguments**:
+  - Uses `Navigator.pushNamed` with `arguments` to pass product data between screens.
+  - Supports both "Add" and "Update" modes dynamically via passed `action` and `product` map.
+
+---
+
+## 🧩 Architecture
+
+- **Bloc Pattern**: For handling business logic (`ProductBloc`, `ProductEvent`, `ProductState`).
+- **Presentation Layer**:
+  - `AddUpdatePage`: Handles both creation and update of products.
+  - `HomePage`: Displays product list with options to edit or delete.
+- **Models**:
+  - `ProductModel`: Represents a product with fields like `id`, `name`, `price`, `description`, and `imageUrl`.
+
+---
+
 # Task 18 | 🧩 Dependency Injection Setup (get_it)
 
 This project uses [`get_it`](https://pub.dev/packages/get_it) for dependency injection to manage the creation and access of services, data sources, repositories, and use cases across the app.
