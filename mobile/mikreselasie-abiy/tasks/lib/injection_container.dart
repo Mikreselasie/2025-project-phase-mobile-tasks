@@ -1,5 +1,6 @@
 // lib/injection_container.dart
-import 'package:ecommerce/core/platform/network_info.dart';
+
+import 'package:ecommerce/core/network/network_info.dart';
 import 'package:ecommerce/features/product/data/data_sources/product_remote_data_source_impl.dart';
 import 'package:ecommerce/features/product/data/data_sources/products_local_data_source.dart';
 import 'package:ecommerce/features/product/data/data_sources/products_local_data_source_impl.dart';
