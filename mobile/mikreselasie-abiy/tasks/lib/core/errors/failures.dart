@@ -24,3 +24,23 @@ class NotFoundFailure extends Failure {
 class NetworkFailure extends Failure {
   const NetworkFailure([super.message = 'No internet connection']);
 }
+
+class AuthFailure extends Failure {
+  const AuthFailure(super.message);
+
+  factory AuthFailure.passwordTooShort() {
+    return const AuthFailure('Password is too short');
+  }
+
+  factory AuthFailure.emailAlreadyInUse() {
+    return const AuthFailure('Email is already in use');
+  }
+
+  factory AuthFailure.invalidEmailAndPasswordCombination() {
+    return const AuthFailure('Invalid email and password combination');
+  }
+
+  factory AuthFailure.tokenExpired() {
+    return const AuthFailure('Token has expired');
+  }
+}
