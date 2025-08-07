@@ -1,10 +1,11 @@
-import 'package:ecommerce/features/auth/domain/entities/user.dart';
 import 'package:equatable/equatable.dart';
 
 class LogInParams extends Equatable {
-  final User user;
+  final String email;
+  final String password;
 
-  const LogInParams({required this.user});
+  const LogInParams(this.email, this.password);
+
   @override
-  List<Object?> get props => [user];
+  List<Object?> get props => [email, password];
 }

@@ -1,39 +1,72 @@
 import 'package:dartz/dartz.dart';
+import 'package:ecommerce/core/errors/failures.dart';
 import 'package:ecommerce/features/auth/domain/entities/user.dart';
-import 'package:ecommerce/features/auth/domain/repositories/user_repository.dart';
+import 'package:ecommerce/features/auth/domain/repositories/auth_repository.dart';
 import 'package:ecommerce/features/auth/domain/usecases/sign_up.dart';
 import 'package:ecommerce/features/auth/domain/usecases/sign_up_params.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'log_in_test.mocks.dart';
+import 'sign_up_test.mocks.dart';
 
-@GenerateMocks([UserRepository])
+@GenerateMocks([AuthRepository])
 void main() {
-  late SignUp signUp;
-  late MockUserRepository mockUserRepository;
+  late MockAuthRepository repository;
+  late SignUp usecase;
 
   setUp(() {
-    mockUserRepository = MockUserRepository();
-    signUp = SignUp(mockUserRepository);
+    repository = MockAuthRepository();
+    usecase = SignUp(repository);
   });
 
-  test("Should signUp using repository", () async {
-    final tUser = User(
-      email: "mikre@gmail.com",
-      password: "123456",
-      userName: "mikre98",
+  const tName = 'name';
+  const tEmail = 'email@gmail.com';
+  const tPassword = 'password';
+  const tAccessToken = 'token';
+  const tUser = User(
+    id: 'id',
+    name: tName,
+    email: tEmail,
+    accessToken: tAccessToken,
+  );
+
+  test('should register using the repository', () async {
+    // arrange
+    when(
+      repository.register(name: tName, email: tEmail, password: tPassword),
+    ).thenAnswer((_) async => const Right(tUser));
+
+    // act
+    final result = await usecase(
+      const SignUpParams(userName: tName, email: tEmail, password: tPassword),
     );
 
-    when(
-      mockUserRepository.signUp(user: tUser),
-    ).thenAnswer((_) async => Right(tUser));
+    // assert
+    expect(result, const Right(tUser));
+    verify(
+      repository.register(name: tName, email: tEmail, password: tPassword),
+    );
+    verifyNoMoreInteractions(repository);
+  });
 
-    final result = await signUp(SignUpParams(user: tUser));
+  test('should return a failure when password is too short', () async {
+    // arrange
+    const tShortPassword = '123';
 
-    expect(result, Right(tUser));
-    verify(mockUserRepository.signUp(user: tUser));
-    verifyNoMoreInteractions(mockUserRepository);
+    // act
+    final result = await usecase(
+      const SignUpParams(
+        userName: tName,
+        email: tEmail,
+        password: tShortPassword,
+      ),
+    );
+
+    // assert
+    expect(result, Left(AuthFailure.passwordTooShort()));
+    verifyNever(
+      repository.register(name: tName, email: tEmail, password: tShortPassword),
+    );
   });
 }

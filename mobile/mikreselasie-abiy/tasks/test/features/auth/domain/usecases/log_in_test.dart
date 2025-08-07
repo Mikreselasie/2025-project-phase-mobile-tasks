@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce/features/auth/domain/entities/user.dart';
-import 'package:ecommerce/features/auth/domain/repositories/user_repository.dart';
+import 'package:ecommerce/features/auth/domain/repositories/auth_repository.dart';
 import 'package:ecommerce/features/auth/domain/usecases/log_in.dart';
 import 'package:ecommerce/features/auth/domain/usecases/log_in_params.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -9,31 +9,36 @@ import 'package:mockito/mockito.dart';
 
 import 'log_in_test.mocks.dart';
 
-@GenerateMocks([UserRepository])
+@GenerateMocks([AuthRepository])
 void main() {
-  late LogIn logIn;
-  late MockUserRepository mockUserRepository;
+  late MockAuthRepository repository;
+  late LogIn usecase;
 
   setUp(() {
-    mockUserRepository = MockUserRepository();
-    logIn = LogIn(mockUserRepository);
+    repository = MockAuthRepository();
+    usecase = LogIn(repository);
   });
 
-  test("Should login using repository", () async {
-    final tUser = User(
-      email: "mikre@gmail.com",
-      password: "123456",
-      userName: "mikre98",
-    );
+  const tName = 'name';
+  const tEmail = 'email@gmail.com';
+  const tPassword = 'password';
+  const tAccessToken = 'token';
+  const tUser = User(
+    id: 'id',
+    name: tName,
+    email: tEmail,
+    accessToken: tAccessToken,
+  );
 
+  test('should login using the repository', () async {
     when(
-      mockUserRepository.logIn(user: tUser),
-    ).thenAnswer((_) async => Right(tUser));
+      repository.login(email: tEmail, password: tPassword),
+    ).thenAnswer((_) async => const Right(tUser));
 
-    final result = await logIn(LogInParams(user: tUser));
+    final result = await usecase(const LogInParams(tEmail, tPassword));
 
-    expect(result, Right(tUser));
-    verify(mockUserRepository.logIn(user: tUser));
-    verifyNoMoreInteractions(mockUserRepository);
+    expect(result, const Right(tUser));
+    verify(repository.login(email: tEmail, password: tPassword));
+    verifyNoMoreInteractions(repository);
   });
 }
