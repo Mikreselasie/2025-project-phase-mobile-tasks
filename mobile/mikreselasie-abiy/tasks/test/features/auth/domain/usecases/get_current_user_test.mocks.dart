@@ -7,7 +7,8 @@ import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:ecommerce/core/errors/failures.dart' as _i5;
-import 'package:ecommerce/features/auth/domain/entities/user.dart' as _i6;
+import 'package:ecommerce/features/auth/domain/entities/authenticated_user.dart'
+    as _i6;
 import 'package:ecommerce/features/auth/domain/repositories/auth_repository.dart'
     as _i3;
 import 'package:mockito/mockito.dart' as _i1;
@@ -40,26 +41,29 @@ class MockAuthRepository extends _i1.Mock implements _i3.AuthRepository {
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.User>> login({
+  _i4.Future<_i2.Either<_i5.Failure, _i6.AuthenticatedUser>> login({
     required String? email,
     required String? password,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#login, [], {#email: email, #password: password}),
-            returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.User>>.value(
-              _FakeEither_0<_i5.Failure, _i6.User>(
-                this,
-                Invocation.method(#login, [], {
-                  #email: email,
-                  #password: password,
-                }),
-              ),
-            ),
+            returnValue:
+                _i4.Future<
+                  _i2.Either<_i5.Failure, _i6.AuthenticatedUser>
+                >.value(
+                  _FakeEither_0<_i5.Failure, _i6.AuthenticatedUser>(
+                    this,
+                    Invocation.method(#login, [], {
+                      #email: email,
+                      #password: password,
+                    }),
+                  ),
+                ),
           )
-          as _i4.Future<_i2.Either<_i5.Failure, _i6.User>>);
+          as _i4.Future<_i2.Either<_i5.Failure, _i6.AuthenticatedUser>>);
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.User>> register({
+  _i4.Future<_i2.Either<_i5.Failure, _i6.AuthenticatedUser>> register({
     required String? name,
     required String? email,
     required String? password,
@@ -70,18 +74,21 @@ class MockAuthRepository extends _i1.Mock implements _i3.AuthRepository {
               #email: email,
               #password: password,
             }),
-            returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.User>>.value(
-              _FakeEither_0<_i5.Failure, _i6.User>(
-                this,
-                Invocation.method(#register, [], {
-                  #name: name,
-                  #email: email,
-                  #password: password,
-                }),
-              ),
-            ),
+            returnValue:
+                _i4.Future<
+                  _i2.Either<_i5.Failure, _i6.AuthenticatedUser>
+                >.value(
+                  _FakeEither_0<_i5.Failure, _i6.AuthenticatedUser>(
+                    this,
+                    Invocation.method(#register, [], {
+                      #name: name,
+                      #email: email,
+                      #password: password,
+                    }),
+                  ),
+                ),
           )
-          as _i4.Future<_i2.Either<_i5.Failure, _i6.User>>);
+          as _i4.Future<_i2.Either<_i5.Failure, _i6.AuthenticatedUser>>);
 
   @override
   _i4.Future<_i2.Either<_i5.Failure, _i2.Unit>> logout() =>
@@ -97,15 +104,18 @@ class MockAuthRepository extends _i1.Mock implements _i3.AuthRepository {
           as _i4.Future<_i2.Either<_i5.Failure, _i2.Unit>>);
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.User>> getCurrentUser() =>
+  _i4.Future<_i2.Either<_i5.Failure, _i6.AuthenticatedUser>> getCurrentUser() =>
       (super.noSuchMethod(
             Invocation.method(#getCurrentUser, []),
-            returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.User>>.value(
-              _FakeEither_0<_i5.Failure, _i6.User>(
-                this,
-                Invocation.method(#getCurrentUser, []),
-              ),
-            ),
+            returnValue:
+                _i4.Future<
+                  _i2.Either<_i5.Failure, _i6.AuthenticatedUser>
+                >.value(
+                  _FakeEither_0<_i5.Failure, _i6.AuthenticatedUser>(
+                    this,
+                    Invocation.method(#getCurrentUser, []),
+                  ),
+                ),
           )
-          as _i4.Future<_i2.Either<_i5.Failure, _i6.User>>);
+          as _i4.Future<_i2.Either<_i5.Failure, _i6.AuthenticatedUser>>);
 }

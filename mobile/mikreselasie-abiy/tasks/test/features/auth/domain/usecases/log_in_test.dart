@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:ecommerce/features/auth/domain/entities/user.dart';
+import 'package:ecommerce/features/auth/domain/entities/authenticated_user.dart';
 import 'package:ecommerce/features/auth/domain/repositories/auth_repository.dart';
 import 'package:ecommerce/features/auth/domain/usecases/log_in.dart';
 import 'package:ecommerce/features/auth/domain/usecases/log_in_params.dart';
@@ -23,7 +23,7 @@ void main() {
   const tEmail = 'email@gmail.com';
   const tPassword = 'password';
   const tAccessToken = 'token';
-  const tUser = User(
+  const tUser = AuthenticatedUser(
     id: 'id',
     name: tName,
     email: tEmail,

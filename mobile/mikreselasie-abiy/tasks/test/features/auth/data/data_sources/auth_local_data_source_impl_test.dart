@@ -1,0 +1,50 @@
+import 'dart:convert';
+
+import 'package:ecommerce/core/errors/exceptions.dart';
+import 'package:ecommerce/features/auth/data/data_sources/auth_local_data_source.dart';
+import 'package:ecommerce/features/auth/data/data_sources/auth_local_data_source_impl.dart';
+import 'package:ecommerce/features/auth/data/models/authenticated_user_model.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
+
+import '../../../../core/fixtures/fixiture_reader.dart';
+import '../../../product/data/data_sources/product_local_data_source_impl_test.mocks.dart';
+
+void main() {
+  late MockSharedPreferences mockSharedPreferences;
+
+  group('AuthLocalDataSource', () {
+    late AuthLocalDataSource authLocalDataSource;
+
+    setUp(() {
+      mockSharedPreferences = MockSharedPreferences();
+      authLocalDataSource = AuthLocalDataSourceImpl(
+        sharedPreferences: mockSharedPreferences,
+      );
+    });
+
+    final userJson = fixiture('auth_user.json');
+    final user = AuthenticatedUserModel.fromJson(jsonDecode(userJson));
+
+    group('getUser', () {
+      test('should return user from SharedPreferences', () async {
+        when(mockSharedPreferences.getString(any)).thenReturn(userJson);
+
+        final result = await authLocalDataSource.getUser();
+
+        expect(result, user);
+      });
+
+      test(
+        'should throw CacheException when user not found in cache',
+        () async {
+          when(mockSharedPreferences.getString(any)).thenReturn(null);
+
+          final call = authLocalDataSource.getUser;
+
+          expect(() => call(), throwsA(isA<CacheException>()));
+        },
+      );
+    });
+  });
+}

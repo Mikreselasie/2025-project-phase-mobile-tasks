@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 
-class User extends Equatable {
+class AuthenticatedUser extends Equatable {
   final id;
   final email;
   final name;
   final accessToken;
 
-  const User({
+  const AuthenticatedUser({
     required this.email,
     required this.name,
     required this.id,

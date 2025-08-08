@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce/core/errors/failures.dart';
-import 'package:ecommerce/features/auth/domain/entities/user.dart';
+import 'package:ecommerce/features/auth/domain/entities/authenticated_user.dart';
 import 'package:ecommerce/features/auth/domain/repositories/auth_repository.dart';
 import 'package:ecommerce/features/auth/domain/usecases/sign_up.dart';
 import 'package:ecommerce/features/auth/domain/usecases/sign_up_params.dart';
@@ -24,7 +24,7 @@ void main() {
   const tEmail = 'email@gmail.com';
   const tPassword = 'password';
   const tAccessToken = 'token';
-  const tUser = User(
+  const tUser = AuthenticatedUser(
     id: 'id',
     name: tName,
     email: tEmail,

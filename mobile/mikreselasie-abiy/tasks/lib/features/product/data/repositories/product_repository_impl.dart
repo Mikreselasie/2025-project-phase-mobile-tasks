@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failures.dart';
-import '../../../../core/platform/network_info.dart';
+import '../../../../core/network/network_info.dart';
 import '../data_sources/products_local_data_source.dart';
 import '../data_sources/products_remote_data_source.dart';
 import '../models/product_model.dart';

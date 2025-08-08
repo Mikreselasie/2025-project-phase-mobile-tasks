@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce/core/usecases/usecase.dart';
-import 'package:ecommerce/features/auth/domain/entities/user.dart';
+import 'package:ecommerce/features/auth/domain/entities/authenticated_user.dart';
 import 'package:ecommerce/features/auth/domain/repositories/auth_repository.dart';
 import 'package:ecommerce/features/auth/domain/usecases/get_current_user.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -19,7 +19,7 @@ void main() {
     useCase = GetCurrentUser(mockAuthRepository);
   });
 
-  const authenticatedUser = User(
+  const authenticatedUser = AuthenticatedUser(
     id: '123',
     name: 'name',
     email: 'test@example.com',
