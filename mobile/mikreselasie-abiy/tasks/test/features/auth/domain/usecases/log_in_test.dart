@@ -35,7 +35,9 @@ void main() {
       repository.login(email: tEmail, password: tPassword),
     ).thenAnswer((_) async => const Right(tUser));
 
-    final result = await usecase(const LogInParams(tEmail, tPassword));
+    final result = await usecase(
+      const LogInParams(email: tEmail, password: tPassword),
+    );
 
     expect(result, const Right(tUser));
     verify(repository.login(email: tEmail, password: tPassword));

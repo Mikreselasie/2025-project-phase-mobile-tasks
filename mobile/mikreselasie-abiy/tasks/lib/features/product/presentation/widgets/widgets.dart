@@ -1,9 +1,9 @@
 export 'product_card.dart';
 export 'details_page_control.dart';
-export 'icons_box.dart';
+export '../../../../core/presentation/widgets/icons_box.dart';
 export 'image_picker_container.dart';
 export 'input_inserted.dart';
 export 'image_with_back_button_details_page.dart';
 export 'input_type_name.dart';
 export 'product_details_widget.dart';
-export 'add_button.dart';
+export '../../../../core/presentation/widgets/add_button.dart';

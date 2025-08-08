@@ -1,5 +1,5 @@
 import 'package:ecommerce/features/product/data/models/product_model.dart';
-import 'package:ecommerce/features/product/presentation/constants/constants.dart';
+import 'package:ecommerce/core/presentation/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class ImageWithBackButtonDetailsPage extends StatelessWidget {

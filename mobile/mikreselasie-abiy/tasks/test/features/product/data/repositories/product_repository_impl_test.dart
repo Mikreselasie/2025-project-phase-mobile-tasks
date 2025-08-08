@@ -13,7 +13,7 @@ import 'product_repository_impl_test.mocks.dart';
 
 @GenerateNiceMocks([
   MockSpec<ProductsRemoteDataSource>(as: #MockProductRemoteDataSource),
-  MockSpec<LocalDataSource>(as: #MockProductLocalDataSource),
+  MockSpec<ProductLocalDataSource>(as: #MockProductLocalDataSource),
   MockSpec<NetworkInfo>(as: #MockNetworkInfo),
 ])
 void main() {

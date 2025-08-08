@@ -99,4 +99,17 @@ class ProductRemoteDataSourceImpl extends ProductsRemoteDataSource {
       throw ServerException(message: e.toString());
     }
   }
+
+  Future<List<ProductModel>> searchProducts(String query) async {
+    final response = await client.get(
+      Uri.parse('$baseUrl/products?search=$query') as String,
+    );
+
+    if (response.statusCode == 200) {
+      final List<dynamic> jsonList = json.decode(response.body);
+      return jsonList.map((json) => ProductModel.fromJson(json)).toList();
+    } else {
+      throw ServerException(message: 'Failed to search products');
+    }
+  }
 }

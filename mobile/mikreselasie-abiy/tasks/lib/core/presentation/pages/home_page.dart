@@ -1,21 +1,30 @@
+import 'package:ecommerce/core/presentation/constants/constants.dart';
+import 'package:ecommerce/core/presentation/routers/app_routes.dart';
+import 'package:ecommerce/core/presentation/widgets/add_button.dart';
+import 'package:ecommerce/core/presentation/widgets/icons_box.dart';
+import 'package:ecommerce/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:ecommerce/features/auth/presentation/bloc/auth_state.dart';
+import 'package:ecommerce/features/product/presentation/bloc/product_bloc.dart';
+import 'package:ecommerce/features/product/presentation/bloc/product_event.dart';
+import 'package:ecommerce/features/product/presentation/bloc/product_state.dart';
+import 'package:ecommerce/features/product/presentation/widgets/product_card.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../bloc/product_bloc.dart';
-import '../bloc/product_event.dart';
-import '../bloc/product_state.dart';
-import '../constants/constants.dart';
-import '../widgets/widgets.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     // Load all products when the page opens
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<ProductBloc>().add(LoadAllProductEvent());
+      context.read<ProductBloc>().add(ProductsLoadRequested());
     });
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(25.0),
         child: Column(
@@ -48,18 +57,43 @@ class HomePage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("July 14, 2023", style: AppTextStyles.dateText),
-                        Row(
-                          children: [
-                            Text(
-                              "Hello, ",
-                              style: AppTextStyles.welcomeTextHello,
-                            ),
-                            Text(
-                              "Yohannes",
-                              style: AppTextStyles.welcomeTextName,
-                            ),
-                          ],
+                        BlocBuilder<AuthBloc, AuthState>(
+                          builder: (context, state) {
+                            final date = DateFormat(
+                              'MMMM d, y',
+                            ).format(DateTime.now());
+
+                            String name = "Guest";
+
+                            if (state is AuthSuccess) {
+                              name = state.user.name;
+                            } else if (state is AuthLoadSuccess) {
+                              name = state.user.name;
+                            } else if (state is AuthLoginSuccess) {
+                              name = state.user.name;
+                            } else if (state is AuthRegisterSuccess) {
+                              name = state.user.name;
+                            }
+
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(date, style: AppTextStyles.dateText),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Hello, ",
+                                      style: AppTextStyles.welcomeTextHello,
+                                    ),
+                                    Text(
+                                      name,
+                                      style: AppTextStyles.welcomeTextName,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -80,7 +114,10 @@ class HomePage extends StatelessWidget {
                 children: [
                   Text("Available Products", style: AppTextStyles.bigheading),
                   GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, "/searchPage"),
+                    onTap: () {
+                      // TODO: Implement search functionality
+                      context.push(Routes.searchProduct);
+                    },
                     child: IconsBox(
                       child: Icon(Icons.search, color: AppColors.borderPrimary),
                     ),

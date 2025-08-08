@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 abstract class NetworkInfo {
@@ -5,10 +6,14 @@ abstract class NetworkInfo {
 }
 
 class NetworkInfoImpl implements NetworkInfo {
-  final InternetConnection connetctionChecker;
+  final InternetConnection connectionChecker;
 
-  NetworkInfoImpl({required this.connetctionChecker});
+  NetworkInfoImpl({required this.connectionChecker});
 
   @override
-  Future<bool> get isConnected => connetctionChecker.hasInternetAccess;
+  Future<bool> get isConnected async {
+    final result = await connectionChecker.hasInternetAccess;
+    debugPrint('📡 Network check result: $result');
+    return result;
+  }
 }

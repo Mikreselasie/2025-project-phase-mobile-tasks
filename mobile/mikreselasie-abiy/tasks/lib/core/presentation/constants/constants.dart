@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 /// App-wide color palette
 class AppColors {
-  static const Color primary = Color(0xFF0D47A1); // Deep Blue
+  static const Color primary = Color(0xFF3F51F3); // Deep Blue
   static const Color secondary = Color.fromARGB(
     255,
     63,
@@ -21,8 +21,8 @@ class AppColors {
 /// App-wide text styles
 class AppTextStyles {
   static const TextStyle heading1 = TextStyle(
-    fontSize: 24,
-    fontWeight: FontWeight.w900,
+    fontSize: 35,
+    fontWeight: FontWeight.w600,
     color: AppColors.textPrimary,
     fontFamily: 'Poppins',
   );
@@ -41,9 +41,16 @@ class AppTextStyles {
     fontFamily: 'Poppins',
   );
 
+  static const TextStyle labels = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+    color: Color.fromARGB(255, 92, 92, 92),
+    fontFamily: 'Poppins',
+  );
+
   static const TextStyle heading2grey = TextStyle(
     fontSize: 20,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w500,
     color: AppColors.textSecondary,
     fontFamily: 'Poppins',
   );
@@ -128,10 +135,56 @@ class AppTextStyles {
 
     color: AppColors.error,
   );
-  static const TextStyle updateButton = TextStyle(
-    fontSize: 14,
+  static const TextStyle blueButton = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
     fontFamily: 'Poppins',
 
     color: AppColors.background,
+  );
+  static const TextStyle blueButtonDetails = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'Poppins',
+
+    color: AppColors.background,
+  );
+
+  static const TextStyle logoText = TextStyle(
+    fontSize: 30,
+    fontFamily: 'Caveat',
+    fontWeight: FontWeight.w900,
+    color: AppColors.primary,
+  );
+  static const TextStyle logoTextBig = TextStyle(
+    fontSize: 50,
+    fontFamily: 'Caveat',
+    fontWeight: FontWeight.w900,
+    color: AppColors.primary,
+  );
+
+  static const TextStyle link_text = TextStyle(
+    fontSize: 13,
+    fontFamily: 'poppins',
+    fontWeight: FontWeight.w600,
+    color: AppColors.primary,
+  );
+  static const TextStyle terms_text = TextStyle(
+    fontSize: 13,
+    fontFamily: 'poppins',
+    fontWeight: FontWeight.w600,
+    color: AppColors.textPrimary,
+  );
+  static const TextStyle toggleText = TextStyle(
+    fontSize: 18,
+    fontFamily: 'poppins',
+    fontWeight: FontWeight.w500,
+    color: Color.fromARGB(255, 87, 87, 87),
+  );
+  static const TextStyle toggleTextLink = TextStyle(
+    fontSize: 18,
+    fontFamily: 'poppins',
+    fontWeight: FontWeight.w500,
+    color: AppColors.primary,
   );
 }

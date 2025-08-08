@@ -1,5 +1,6 @@
 // product_event.dart
 
+import 'package:ecommerce/features/product/data/models/product_model.dart';
 import 'package:ecommerce/features/product/domain/entities/product.dart';
 import 'package:equatable/equatable.dart';
 
@@ -52,4 +53,44 @@ class CreateProductEvent extends ProductEvent {
 
   @override
   List<Object?> get props => [productData];
+}
+
+class ProductImagePickedEvent extends ProductEvent {
+  final String imagePath;
+
+  const ProductImagePickedEvent(this.imagePath);
+
+  @override
+  List<Object?> get props => [imagePath];
+}
+
+class ProductUpdated extends ProductEvent {
+  final ProductModel product;
+
+  const ProductUpdated(this.product);
+
+  @override
+  List<Object?> get props => [product];
+}
+
+class ProductAdded extends ProductEvent {
+  final ProductModel product;
+
+  const ProductAdded(this.product);
+
+  @override
+  List<Object?> get props => [product];
+}
+
+class ProductsLoadRequested extends ProductEvent {
+  const ProductsLoadRequested();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class SearchProductEvent extends ProductEvent {
+  final String query;
+
+  SearchProductEvent(this.query);
 }

@@ -6,4 +6,5 @@ abstract class ProductsRemoteDataSource {
   Future<ProductModel> updateProductOnServer(ProductModel product);
   Future<void> deleteProductFromServer(String id);
   Future<List<ProductModel>> getAllProducts();
+  Future<List<ProductModel>> searchProducts(String query);
 }
