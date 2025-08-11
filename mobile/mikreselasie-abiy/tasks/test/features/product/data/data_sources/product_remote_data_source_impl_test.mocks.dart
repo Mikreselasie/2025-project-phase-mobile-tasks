@@ -107,7 +107,7 @@ class MockHttpClient extends _i1.Mock implements _i3.HttpClient {
             Invocation.method(
               #post,
               [url, body],
-              {#headers: headers, #body: body},
+              {#headers: headers, #bodyText: bodyText},
             ),
             returnValue: _i4.Future<_i3.HttpResponse>.value(
               _FakeHttpResponse_2(
@@ -115,7 +115,7 @@ class MockHttpClient extends _i1.Mock implements _i3.HttpClient {
                 Invocation.method(
                   #post,
                   [url, body],
-                  {#headers: headers, #body: body},
+                  {#headers: headers, #bodyText: bodyText},
                 ),
               ),
             ),

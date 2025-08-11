@@ -13,7 +13,7 @@ import 'product_local_data_source_impl_test.mocks.dart';
 @GenerateMocks([SharedPreferences])
 void main() {
   late MockSharedPreferences mockSharedPreferences;
-  late LocalDataSourceImpl dataSource;
+  late ProductLocalDataSourceImpl dataSource;
 
   const cachedProductsKey = 'CACHED_PRODUCTS';
 
@@ -39,7 +39,9 @@ void main() {
 
   setUp(() {
     mockSharedPreferences = MockSharedPreferences();
-    dataSource = LocalDataSourceImpl(sharedPreferences: mockSharedPreferences);
+    dataSource = ProductLocalDataSourceImpl(
+      sharedPreferences: mockSharedPreferences,
+    );
   });
 
   group('cacheProduct', () {

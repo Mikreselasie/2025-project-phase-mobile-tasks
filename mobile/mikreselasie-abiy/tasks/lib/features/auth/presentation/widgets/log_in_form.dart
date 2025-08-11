@@ -18,69 +18,78 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        children: [
-          const SizedBox(height: 10),
-          Input(
-            label: 'Email',
-            controller: _emailController,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Email';
-              }
-              return null;
-            },
-            hint: "  ex. jon.smith@gmail.com",
-          ),
-          const SizedBox(height: 10),
-          Input(
-            label: 'Password',
-            controller: _passwordController,
-            isPassword: true,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Password';
-              }
-              return null;
-            },
-            hint: "  ***********",
-          ),
-          const SizedBox(height: 40),
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, state) {
+        final isLoading = state is AuthLoginInProgress;
 
-          //
-          SizedBox(
-            width: double.infinity,
-            child: BlocBuilder<AuthBloc, AuthState>(
-              builder: (context, state) {
-                if (state is AuthLoginInProgress) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-
-                return Button(
-                  text: 'SIGN IN',
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      _login(context);
-                    }
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all(
-                      AppColors.secondary,
-                    ),
-                    shape: WidgetStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+        return Stack(
+          children: [
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  const SizedBox(height: 10),
+                  Input(
+                    label: 'Email',
+                    controller: _emailController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Email';
+                      }
+                      return null;
+                    },
+                    hint: "  ex. jon.smith@gmail.com",
+                  ),
+                  const SizedBox(height: 10),
+                  Input(
+                    label: 'Password',
+                    controller: _passwordController,
+                    isPassword: true,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Password';
+                      }
+                      return null;
+                    },
+                    hint: "  ***********",
+                  ),
+                  const SizedBox(height: 40),
+                  SizedBox(
+                    width: double.infinity,
+                    child: Button(
+                      text: 'SIGN IN',
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          _login(context);
+                        }
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all(
+                          AppColors.secondary,
+                        ),
+                        shape: WidgetStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                );
-              },
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
+
+            // Semi-transparent overlay loader
+            if (isLoading)
+              Positioned.fill(
+                child: Container(
+                  color: Colors.black.withOpacity(0.5),
+                  child: const Center(child: CircularProgressIndicator()),
+                ),
+              ),
+          ],
+        );
+      },
     );
   }
 

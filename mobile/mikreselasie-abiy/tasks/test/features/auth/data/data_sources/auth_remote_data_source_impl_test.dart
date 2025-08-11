@@ -10,7 +10,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../core/fixtures/fixiture_reader.dart';
-import 'auth_remote_data_source_impl_test.mocks.dart';
+import '../../../product/data/data_sources/product_remote_data_source_impl_test.mocks.dart';
 
 void main() {
   late MockHttpClient mockHttpClient;

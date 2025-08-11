@@ -1,6 +1,8 @@
+import 'package:ecommerce/core/presentation/routers/app_routes.dart';
 import 'package:ecommerce/features/product/data/models/product_model.dart';
 import 'package:ecommerce/core/presentation/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ImageWithBackButtonDetailsPage extends StatelessWidget {
   const ImageWithBackButtonDetailsPage({super.key, required this.product});
@@ -17,7 +19,7 @@ class ImageWithBackButtonDetailsPage extends StatelessWidget {
           top: 20,
           child: GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              context.go(Routes.home);
             },
             child: Container(
               decoration: const BoxDecoration(
