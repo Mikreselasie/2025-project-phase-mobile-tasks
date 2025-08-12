@@ -8,4 +8,7 @@ class Routes {
   static const addProduct = '/add-product';
   static const updateProduct = '/update-product';
   static const searchProduct = '/search-product';
+
+  static const chats = '/chats';
+  static const chatInbox = '/chat-inbox';
 }

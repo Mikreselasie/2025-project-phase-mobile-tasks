@@ -98,10 +98,15 @@ class HomePage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  IconsBox(
-                    child: Icon(
-                      Icons.notifications_on,
-                      color: AppColors.textPrimary,
+                  GestureDetector(
+                    onTap: () {
+                      context.go(Routes.chats);
+                    },
+                    child: IconsBox(
+                      child: Icon(
+                        Icons.notifications_on,
+                        color: AppColors.textPrimary,
+                      ),
                     ),
                   ),
                 ],

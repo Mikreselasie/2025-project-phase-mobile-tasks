@@ -5,6 +5,18 @@ import 'package:ecommerce/features/auth/data/data_sources/auth_remote_data_sourc
 import 'package:ecommerce/features/auth/domain/usecases/log_in.dart';
 import 'package:ecommerce/features/auth/domain/usecases/log_out.dart';
 import 'package:ecommerce/features/auth/domain/usecases/sign_up.dart';
+import 'package:ecommerce/features/chat/data/data_sources/chat_local_data_source.dart';
+import 'package:ecommerce/features/chat/data/data_sources/chat_local_data_source_impl.dart';
+import 'package:ecommerce/features/chat/data/data_sources/chat_remote_data_source.dart';
+import 'package:ecommerce/features/chat/data/data_sources/chat_remote_data_source_impl.dart';
+import 'package:ecommerce/features/chat/data/repositories/chat_repository_impl.dart';
+import 'package:ecommerce/features/chat/domain/repositories/chat_repository.dart';
+import 'package:ecommerce/features/chat/domain/usecases/get_chat_messages.dart';
+import 'package:ecommerce/features/chat/domain/usecases/get_my_chats.dart';
+import 'package:ecommerce/features/chat/domain/usecases/initiate_chat.dart';
+import 'package:ecommerce/features/chat/domain/usecases/send_message.dart';
+import 'package:ecommerce/features/chat/presentation/bloc/chat/chat_bloc.dart';
+import 'package:ecommerce/features/chat/presentation/bloc/message/message_bloc.dart';
 import 'package:ecommerce/features/product/data/data_sources/product_remote_data_source_impl.dart';
 import 'package:ecommerce/features/product/data/data_sources/products_local_data_source.dart';
 import 'package:ecommerce/features/product/data/data_sources/products_local_data_source_impl.dart';
@@ -107,6 +119,42 @@ Future<void> init() async {
   );
   serviceLocator.registerLazySingleton<AuthRemoteDataSource>(
     () => AuthRemoteDataSourceImpl(client: serviceLocator()),
+  );
+
+  //! Feature_#3 (Chat) --------------------------------------------------------
+  // Bloc
+  serviceLocator.registerFactory(
+    () =>
+        ChatsBloc(getMyChats: serviceLocator(), initiateChat: serviceLocator()),
+  );
+  serviceLocator.registerFactory(
+    () => MessageBloc(
+      getChatMessages: serviceLocator(),
+      sendMessage: serviceLocator(),
+    ),
+  );
+
+  // Use cases
+  serviceLocator.registerLazySingleton(() => GetMyChats(serviceLocator()));
+  serviceLocator.registerLazySingleton(() => InitiateChat(serviceLocator()));
+  serviceLocator.registerLazySingleton(() => GetChatMessages(serviceLocator()));
+  serviceLocator.registerLazySingleton(() => SendMessage(serviceLocator()));
+
+  // Repository
+  serviceLocator.registerLazySingleton<ChatRepository>(
+    () => ChatRepositoryImpl(
+      networkInfo: serviceLocator(),
+      remoteDataSource: serviceLocator(),
+      localDataSource: serviceLocator(),
+    ),
+  );
+
+  // Data
+  serviceLocator.registerLazySingleton<ChatLocalDataSource>(
+    () => ChatLocalDataSourceImpl(sharedPreferences: serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton<ChatRemoteDataSource>(
+    () => ChatRemoteDataSourceImpl(client: serviceLocator()),
   );
 
   //! Core ---------------------------------------------------------------------

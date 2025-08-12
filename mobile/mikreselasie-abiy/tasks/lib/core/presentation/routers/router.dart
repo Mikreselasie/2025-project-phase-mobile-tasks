@@ -1,7 +1,13 @@
 import 'package:ecommerce/core/presentation/pages/home_page.dart';
+import 'package:ecommerce/features/chat/domain/entities/chat.dart';
+import 'package:ecommerce/features/chat/presentation/bloc/chat/chat_bloc.dart';
+import 'package:ecommerce/features/chat/presentation/pages/inbox.dart';
+import 'package:ecommerce/features/chat/presentation/pages/my_chats.dart';
 import 'package:ecommerce/features/product/data/models/product_model.dart';
 import 'package:ecommerce/features/product/presentation/pages/search_page.dart';
 import 'package:ecommerce/features/product/presentation/pages/update_product.dart';
+import 'package:ecommerce/injection_container.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../features/auth/presentation/pages/sign_in_page.dart';
 import '../../../features/auth/presentation/pages/sign_up_page.dart';
@@ -59,6 +65,23 @@ final router = GoRouter(
     GoRoute(
       path: Routes.searchProduct,
       builder: (context, state) => const SearchPage(),
+    ),
+
+    GoRoute(
+      path: Routes.chatInbox,
+      builder: (context, state) {
+        final chat = state.extra as Chat;
+        return ChatInboxPage(chat: chat);
+      },
+    ),
+    GoRoute(
+      path: '/chats',
+      builder: (context, state) {
+        return BlocProvider(
+          create: (_) => serviceLocator<ChatsBloc>(),
+          child: ChatsPage(),
+        );
+      },
     ),
   ],
 );
