@@ -44,3 +44,26 @@ class CacheException extends Equatable implements Exception {
   @override
   List<Object?> get props => [message];
 }
+
+class InvalidInputException extends Equatable implements Exception {
+  final String message;
+
+  const InvalidInputException({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+
+  factory InvalidInputException.emptyField() {
+    return const InvalidInputException(message: 'Field cannot be empty');
+  }
+
+  factory InvalidInputException.invalidEmail() {
+    return const InvalidInputException(message: 'Invalid email format');
+  }
+
+  factory InvalidInputException.invalidPassword() {
+    return const InvalidInputException(
+      message: 'Password must be at least 6 characters long',
+    );
+  }
+}

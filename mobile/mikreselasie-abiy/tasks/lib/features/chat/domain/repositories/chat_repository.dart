@@ -15,4 +15,9 @@ abstract class ChatRepository {
     String message,
     String type,
   );
+
+  Future<Either<Failure, Chat>> initiateChat({
+    required String userId,
+    required String? initialMessage,
+  });
 }

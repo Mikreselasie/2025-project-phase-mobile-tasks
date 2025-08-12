@@ -1,6 +1,7 @@
+import 'package:ecommerce/features/chat/domain/entities/chat.dart';
 import 'package:flutter/material.dart';
 
-import '../../domain/entities/chat.dart';
+
 
 class ChatCard extends StatelessWidget {
   final Chat chat;

@@ -100,11 +100,11 @@ class HomePage extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      context.go(Routes.chats);
+                      context.push(Routes.chats);
                     },
                     child: IconsBox(
                       child: Icon(
-                        Icons.notifications_on,
+                        Icons.chat_bubble_outline,
                         color: AppColors.textPrimary,
                       ),
                     ),

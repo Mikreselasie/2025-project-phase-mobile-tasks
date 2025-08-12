@@ -124,8 +124,11 @@ Future<void> init() async {
   //! Feature_#3 (Chat) --------------------------------------------------------
   // Bloc
   serviceLocator.registerFactory(
-    () =>
-        ChatsBloc(getMyChats: serviceLocator(), initiateChat: serviceLocator()),
+    () => ChatsBloc(
+      serviceLocator(), // Add the required positional argument here
+      getMyChats: serviceLocator(),
+      initiateChat: serviceLocator(),
+    ),
   );
   serviceLocator.registerFactory(
     () => MessageBloc(

@@ -1,6 +1,7 @@
 import 'package:ecommerce/core/presentation/pages/home_page.dart';
 import 'package:ecommerce/features/chat/domain/entities/chat.dart';
 import 'package:ecommerce/features/chat/presentation/bloc/chat/chat_bloc.dart';
+import 'package:ecommerce/features/chat/presentation/bloc/message/message_bloc.dart';
 import 'package:ecommerce/features/chat/presentation/pages/inbox.dart';
 import 'package:ecommerce/features/chat/presentation/pages/my_chats.dart';
 import 'package:ecommerce/features/product/data/models/product_model.dart';
@@ -71,7 +72,10 @@ final router = GoRouter(
       path: Routes.chatInbox,
       builder: (context, state) {
         final chat = state.extra as Chat;
-        return ChatInboxPage(chat: chat);
+        return BlocProvider(
+          create: (_) => serviceLocator<MessageBloc>(),
+          child: ChatInboxPage(chat: chat),
+        );
       },
     ),
     GoRoute(

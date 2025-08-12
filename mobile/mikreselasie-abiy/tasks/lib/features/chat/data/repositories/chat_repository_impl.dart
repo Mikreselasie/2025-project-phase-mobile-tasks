@@ -77,4 +77,19 @@ class ChatRepositoryImpl extends ChatRepository {
       return const Left(NetworkFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, Chat>> initiateChat({
+    required String userId,
+    required String? initialMessage,
+  }) async {
+    if (await _networkInfo.isConnected) {
+      return _chatRemoteDataSource.initiateChat(
+        userId: userId,
+        initialMessage: initialMessage,
+      );
+    } else {
+      return const Left(NetworkFailure());
+    }
+  }
 }
