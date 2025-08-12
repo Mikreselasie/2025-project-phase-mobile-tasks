@@ -21,7 +21,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     final response = await client.post(
       '$_baseUrl/login',
       loginModel.toJson(),
-      headers: {},
+      {},
       bodyText: "",
     );
 
@@ -44,7 +44,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     final response = await client.post(
       '$_baseUrl/register',
       registerModel.toJson(),
-      headers: {},
+      {},
       bodyText: "",
     );
 

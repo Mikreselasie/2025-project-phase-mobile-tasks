@@ -9,7 +9,7 @@ class Message extends Equatable {
   final Chat chat;
   final String type;
 
-  Message({
+  const Message({
     required this.id,
     required this.content,
     required this.sender,

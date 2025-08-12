@@ -3,6 +3,9 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
+import 'package:socket_io_client/socket_io_client.dart' as io;
+
+import '../constants/constants.dart';
 
 enum HttpMethod { post, put }
 
@@ -40,13 +43,22 @@ class HttpClient {
   final http.MultipartRequest Function(HttpMethod, String)
   multipartRequestFactory;
 
+  io.Socket? _socket;
+
   final _defaultHeaders = {'Content-Type': 'application/json; charset=UTF-8'};
 
   HttpClient({required this.multipartRequestFactory, required this.client});
 
   set authToken(String token) {
     _defaultHeaders['Authorization'] = 'Bearer $token';
+    _socket = io.io(socketUrl, <String, dynamic>{
+      'autoConnect': false,
+      'transports': ['websocket'],
+      'extraHeaders': <String, String>{'authorization': 'Bearer $token'},
+    });
   }
+
+  io.Socket get socket => _socket!;
 
   Future<HttpResponse> get(String url) async {
     final response = await client.get(Uri.parse(url), headers: _defaultHeaders);
@@ -56,8 +68,8 @@ class HttpClient {
 
   Future<HttpResponse> post(
     String url,
-    Map<String, dynamic> body, {
-    required Map<String, String> headers,
+    Map<String, dynamic> body,
+    Map map, {
     required String bodyText,
   }) async {
     final response = await client.post(

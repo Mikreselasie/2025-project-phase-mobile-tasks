@@ -1,16 +1,18 @@
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce/core/errors/failures.dart';
-import 'package:ecommerce/features/auth/domain/entities/user.dart';
-import 'package:ecommerce/features/chat/domain/entities/chat.dart';
-import 'package:ecommerce/features/chat/domain/entities/message.dart';
+import '../../../auth/domain/entities/user.dart';
+import '../entities/chat.dart';
+import '../entities/message.dart';
 
 abstract class ChatRepository {
-  Future<Either<Failure, Chat>> getOrCreateChat(User receiver);
-  Future<Stream<Either<Failure, Message>>> getChatMessages(String chatId);
+  Future<Stream<Either<Failure, Message>>> getChatMessages(String id);
+
   Future<Either<Failure, List<Chat>>> getUserChats();
-  Future<Either<Failure, void>> sendMessage({
-    required String id,
-    required String message,
-    required String type,
-  });
+  Future<Either<Failure, Chat>> getOrCreateChat(User receiver);
+  Future<Either<Failure, Unit>> deleteChat(String id);
+  Future<Either<Failure, Unit>> sendMessage(
+    String chatId,
+    String message,
+    String type,
+  );
 }

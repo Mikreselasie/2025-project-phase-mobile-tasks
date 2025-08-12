@@ -28,7 +28,7 @@ void main() {
     group('login', () {
       test('should return user from API', () async {
         when(
-          mockHttpClient.post("any", {"any": "any"}, bodyText: "", headers: {}),
+          mockHttpClient.post("any", {"any": "any"}, bodyText: "", {}),
         ).thenAnswer(
           (_) async => HttpResponse(statusCode: 201, body: loginResponse),
         );

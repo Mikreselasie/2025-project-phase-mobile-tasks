@@ -14,11 +14,7 @@ class SendMessage implements UseCase<Unit, SendMessageParams> {
   @override
   Future<Either<Failure, Unit>> call(SendMessageParams params) async {
     return await repository
-        .sendMessage(
-          id: params.chat.id,
-          message: params.message,
-          type: params.type,
-        )
+        .sendMessage(params.chat.id, params.message, params.type)
         .then((either) => either.map((_) => unit));
   }
 }

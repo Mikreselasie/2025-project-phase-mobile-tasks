@@ -1,10 +1,10 @@
-import 'package:ecommerce/features/auth/domain/entities/user.dart';
+import 'package:ecommerce/features/auth/data/models/user_model.dart';
 import 'package:equatable/equatable.dart';
 
 class Chat extends Equatable {
   final String id;
-  final User user1;
-  final User user2;
+  final UserModel user1;
+  final UserModel user2;
 
   const Chat({required this.id, required this.user1, required this.user2});
 
