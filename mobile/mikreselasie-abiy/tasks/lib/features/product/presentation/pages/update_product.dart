@@ -1,4 +1,3 @@
-import 'package:ecommerce/core/presentation/constants/constants.dart';
 import 'package:ecommerce/core/presentation/routers/app_routes.dart';
 import 'package:ecommerce/core/presentation/widgets/snack_bar.dart';
 import 'package:ecommerce/features/product/presentation/bloc/product_bloc.dart';

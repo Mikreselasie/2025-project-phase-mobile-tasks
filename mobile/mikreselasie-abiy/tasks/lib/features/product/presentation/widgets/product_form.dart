@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:ecommerce/core/presentation/constants/constants.dart';
-import 'package:ecommerce/core/presentation/widgets/snack_bar.dart' as Snackbar;
 import 'package:ecommerce/features/product/data/models/product_model.dart';
 import 'package:ecommerce/features/product/presentation/bloc/product_bloc.dart';
 import 'package:ecommerce/features/product/presentation/bloc/product_event.dart';

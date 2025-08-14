@@ -1,4 +1,3 @@
-import 'package:ecommerce/core/presentation/constants/constants.dart';
 import 'package:ecommerce/features/product/presentation/widgets/update_add_top.dart';
 
 import '../../../../core/presentation/routers/app_routes.dart';

@@ -1,18 +1,12 @@
 import 'package:ecommerce/core/presentation/constants/constants.dart';
-import 'package:ecommerce/core/presentation/routers/app_routes.dart';
-import 'package:ecommerce/core/presentation/widgets/input.dart';
 import 'package:ecommerce/features/product/presentation/bloc/product_bloc.dart';
-import 'package:ecommerce/features/product/presentation/bloc/product_event.dart';
 import 'package:ecommerce/features/product/presentation/bloc/product_state.dart';
 import 'package:ecommerce/features/product/presentation/widgets/input_inserted.dart';
-import 'package:ecommerce/features/product/presentation/widgets/input_type_name.dart';
-import 'package:ecommerce/features/product/presentation/widgets/price_range_slider.dart';
 import 'package:ecommerce/features/product/presentation/widgets/product_card.dart';
 import 'package:ecommerce/features/product/presentation/widgets/search_page_bottom.dart';
 import 'package:ecommerce/features/product/presentation/widgets/update_add_top.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
