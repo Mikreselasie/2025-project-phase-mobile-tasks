@@ -3,12 +3,13 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i5;
 
-import 'package:ecommerce/core/network/http.dart' as _i3;
+import 'package:ecommerce/core/network/http.dart' as _i4;
 import 'package:http/http.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i5;
+import 'package:mockito/src/dummies.dart' as _i6;
+import 'package:socket_io_client/socket_io_client.dart' as _i3;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -35,26 +36,31 @@ class _FakeMultipartRequest_1 extends _i1.SmartFake
     : super(parent, parentInvocation);
 }
 
-class _FakeHttpResponse_2 extends _i1.SmartFake implements _i3.HttpResponse {
-  _FakeHttpResponse_2(Object parent, Invocation parentInvocation)
+class _FakeSocket_2 extends _i1.SmartFake implements _i3.Socket {
+  _FakeSocket_2(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeUri_3 extends _i1.SmartFake implements Uri {
-  _FakeUri_3(Object parent, Invocation parentInvocation)
+class _FakeHttpResponse_3 extends _i1.SmartFake implements _i4.HttpResponse {
+  _FakeHttpResponse_3(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeStreamedResponse_4 extends _i1.SmartFake
+class _FakeUri_4 extends _i1.SmartFake implements Uri {
+  _FakeUri_4(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
+class _FakeStreamedResponse_5 extends _i1.SmartFake
     implements _i2.StreamedResponse {
-  _FakeStreamedResponse_4(Object parent, Invocation parentInvocation)
+  _FakeStreamedResponse_5(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
 /// A class which mocks [HttpClient].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockHttpClient extends _i1.Mock implements _i3.HttpClient {
+class MockHttpClient extends _i1.Mock implements _i4.HttpClient {
   MockHttpClient() {
     _i1.throwOnMissingStub(this);
   }
@@ -68,17 +74,25 @@ class MockHttpClient extends _i1.Mock implements _i3.HttpClient {
           as _i2.Client);
 
   @override
-  _i2.MultipartRequest Function(_i3.HttpMethod, String)
+  _i2.MultipartRequest Function(_i4.HttpMethod, String)
   get multipartRequestFactory =>
       (super.noSuchMethod(
             Invocation.getter(#multipartRequestFactory),
-            returnValue: (_i3.HttpMethod __p0, String __p1) =>
+            returnValue: (_i4.HttpMethod __p0, String __p1) =>
                 _FakeMultipartRequest_1(
                   this,
                   Invocation.getter(#multipartRequestFactory),
                 ),
           )
-          as _i2.MultipartRequest Function(_i3.HttpMethod, String));
+          as _i2.MultipartRequest Function(_i4.HttpMethod, String));
+
+  @override
+  _i3.Socket get socket =>
+      (super.noSuchMethod(
+            Invocation.getter(#socket),
+            returnValue: _FakeSocket_2(this, Invocation.getter(#socket)),
+          )
+          as _i3.Socket);
 
   @override
   set authToken(String? token) => super.noSuchMethod(
@@ -87,78 +101,74 @@ class MockHttpClient extends _i1.Mock implements _i3.HttpClient {
   );
 
   @override
-  _i4.Future<_i3.HttpResponse> get(String? url) =>
+  _i5.Future<_i4.HttpResponse> get(String? url) =>
       (super.noSuchMethod(
             Invocation.method(#get, [url]),
-            returnValue: _i4.Future<_i3.HttpResponse>.value(
-              _FakeHttpResponse_2(this, Invocation.method(#get, [url])),
+            returnValue: _i5.Future<_i4.HttpResponse>.value(
+              _FakeHttpResponse_3(this, Invocation.method(#get, [url])),
             ),
           )
-          as _i4.Future<_i3.HttpResponse>);
+          as _i5.Future<_i4.HttpResponse>);
 
   @override
-  _i4.Future<_i3.HttpResponse> post(
+  _i5.Future<_i4.HttpResponse> post(
     String? url,
-    Map<String, dynamic>? body, {
-    required Map<String, String>? headers,
+    Map<String, dynamic>? body,
+    Map<dynamic, dynamic>? map, {
     required String? bodyText,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(
-              #post,
-              [url, body],
-              {#headers: headers, #body: body},
-            ),
-            returnValue: _i4.Future<_i3.HttpResponse>.value(
-              _FakeHttpResponse_2(
+            Invocation.method(#post, [url, body, map], {#bodyText: bodyText}),
+            returnValue: _i5.Future<_i4.HttpResponse>.value(
+              _FakeHttpResponse_3(
                 this,
                 Invocation.method(
                   #post,
-                  [url, body],
-                  {#headers: headers, #body: body},
+                  [url, body, map],
+                  {#bodyText: bodyText},
                 ),
               ),
             ),
           )
-          as _i4.Future<_i3.HttpResponse>);
+          as _i5.Future<_i4.HttpResponse>);
 
   @override
-  _i4.Future<_i3.HttpResponse> put(String? url, Map<String, dynamic>? body) =>
+  _i5.Future<_i4.HttpResponse> put(String? url, Map<String, dynamic>? body) =>
       (super.noSuchMethod(
             Invocation.method(#put, [url, body]),
-            returnValue: _i4.Future<_i3.HttpResponse>.value(
-              _FakeHttpResponse_2(this, Invocation.method(#put, [url, body])),
+            returnValue: _i5.Future<_i4.HttpResponse>.value(
+              _FakeHttpResponse_3(this, Invocation.method(#put, [url, body])),
             ),
           )
-          as _i4.Future<_i3.HttpResponse>);
+          as _i5.Future<_i4.HttpResponse>);
 
   @override
-  _i4.Future<_i3.HttpResponse> delete(String? url) =>
+  _i5.Future<_i4.HttpResponse> delete(String? url) =>
       (super.noSuchMethod(
             Invocation.method(#delete, [url]),
-            returnValue: _i4.Future<_i3.HttpResponse>.value(
-              _FakeHttpResponse_2(this, Invocation.method(#delete, [url])),
+            returnValue: _i5.Future<_i4.HttpResponse>.value(
+              _FakeHttpResponse_3(this, Invocation.method(#delete, [url])),
             ),
           )
-          as _i4.Future<_i3.HttpResponse>);
+          as _i5.Future<_i4.HttpResponse>);
 
   @override
-  _i4.Future<_i3.HttpResponse> uploadFile(
+  _i5.Future<_i4.HttpResponse> uploadFile(
     String? url,
-    _i3.HttpMethod? method,
+    _i4.HttpMethod? method,
     Map<String, String>? body,
-    List<_i3.UploadFile>? files,
+    List<_i4.UploadFile>? files,
   ) =>
       (super.noSuchMethod(
             Invocation.method(#uploadFile, [url, method, body, files]),
-            returnValue: _i4.Future<_i3.HttpResponse>.value(
-              _FakeHttpResponse_2(
+            returnValue: _i5.Future<_i4.HttpResponse>.value(
+              _FakeHttpResponse_3(
                 this,
                 Invocation.method(#uploadFile, [url, method, body, files]),
               ),
             ),
           )
-          as _i4.Future<_i3.HttpResponse>);
+          as _i5.Future<_i4.HttpResponse>);
 }
 
 /// A class which mocks [MultipartRequest].
@@ -200,7 +210,7 @@ class MockMultipartRequest extends _i1.Mock implements _i2.MultipartRequest {
   String get method =>
       (super.noSuchMethod(
             Invocation.getter(#method),
-            returnValue: _i5.dummyValue<String>(
+            returnValue: _i6.dummyValue<String>(
               this,
               Invocation.getter(#method),
             ),
@@ -211,7 +221,7 @@ class MockMultipartRequest extends _i1.Mock implements _i2.MultipartRequest {
   Uri get url =>
       (super.noSuchMethod(
             Invocation.getter(#url),
-            returnValue: _FakeUri_3(this, Invocation.getter(#url)),
+            returnValue: _FakeUri_4(this, Invocation.getter(#url)),
           )
           as Uri);
 
@@ -271,7 +281,7 @@ class MockMultipartRequest extends _i1.Mock implements _i2.MultipartRequest {
   _i2.ByteStream finalize() =>
       (super.noSuchMethod(
             Invocation.method(#finalize, []),
-            returnValue: _i5.dummyValue<_i2.ByteStream>(
+            returnValue: _i6.dummyValue<_i2.ByteStream>(
               this,
               Invocation.method(#finalize, []),
             ),
@@ -279,12 +289,12 @@ class MockMultipartRequest extends _i1.Mock implements _i2.MultipartRequest {
           as _i2.ByteStream);
 
   @override
-  _i4.Future<_i2.StreamedResponse> send() =>
+  _i5.Future<_i2.StreamedResponse> send() =>
       (super.noSuchMethod(
             Invocation.method(#send, []),
-            returnValue: _i4.Future<_i2.StreamedResponse>.value(
-              _FakeStreamedResponse_4(this, Invocation.method(#send, [])),
+            returnValue: _i5.Future<_i2.StreamedResponse>.value(
+              _FakeStreamedResponse_5(this, Invocation.method(#send, [])),
             ),
           )
-          as _i4.Future<_i2.StreamedResponse>);
+          as _i5.Future<_i2.StreamedResponse>);
 }

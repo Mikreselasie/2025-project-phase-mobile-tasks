@@ -1,7 +1,10 @@
+import 'package:ecommerce/core/presentation/routers/app_routes.dart';
+import 'package:go_router/go_router.dart';
+
 import '../../data/models/product_model.dart';
 import '../bloc/product_bloc.dart';
 import '../bloc/product_event.dart';
-import '../constants/constants.dart';
+import '../../../../core/presentation/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,7 +25,7 @@ class DetailsPageControl extends StatelessWidget {
           child: OutlinedButton(
             onPressed: () {
               context.read<ProductBloc>().add(DeleteProductEvent(product.id));
-              Navigator.pop(context);
+              context.go(Routes.home);
             },
             style: OutlinedButton.styleFrom(
               padding: const EdgeInsets.all(16),
@@ -41,14 +44,7 @@ class DetailsPageControl extends StatelessWidget {
           height: 50,
           child: TextButton(
             onPressed: () {
-              Navigator.pushNamed(
-                context,
-                '/addUpdatePage',
-                arguments: {
-                  'action': 'update',
-                  'product': product, // ProductModel instance
-                },
-              );
+              context.go(Routes.updateProduct, extra: product);
             },
             style: TextButton.styleFrom(
               backgroundColor: AppColors.secondary,
@@ -57,7 +53,7 @@ class DetailsPageControl extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            child: Text("UPDATE", style: AppTextStyles.updateButton),
+            child: Text("UPDATE", style: AppTextStyles.blueButtonDetails),
           ),
         ),
       ],

@@ -126,13 +126,26 @@ class MockProductRemoteDataSource extends _i1.Mock
             ),
           )
           as _i5.Future<List<_i2.ProductModel>>);
+
+  @override
+  _i5.Future<List<_i2.ProductModel>> searchProducts(String? query) =>
+      (super.noSuchMethod(
+            Invocation.method(#searchProducts, [query]),
+            returnValue: _i5.Future<List<_i2.ProductModel>>.value(
+              <_i2.ProductModel>[],
+            ),
+            returnValueForMissingStub: _i5.Future<List<_i2.ProductModel>>.value(
+              <_i2.ProductModel>[],
+            ),
+          )
+          as _i5.Future<List<_i2.ProductModel>>);
 }
 
-/// A class which mocks [LocalDataSource].
+/// A class which mocks [ProductLocalDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockProductLocalDataSource extends _i1.Mock
-    implements _i6.LocalDataSource {
+    implements _i6.ProductLocalDataSource {
   @override
   _i5.Future<List<_i2.ProductModel>> getAllCachedProducts() =>
       (super.noSuchMethod(

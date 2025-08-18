@@ -10,7 +10,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../core/fixtures/fixiture_reader.dart';
-import 'auth_remote_data_source_impl_test.mocks.dart';
+import '../../../product/data/data_sources/product_remote_data_source_impl_test.mocks.dart';
 
 void main() {
   late MockHttpClient mockHttpClient;
@@ -28,9 +28,13 @@ void main() {
     group('login', () {
       test('should return user from API', () async {
         when(
-          mockHttpClient.post("any", {"any": "any"}, bodyText: "", headers: {}),
+          mockHttpClient.post("any", {"any": "any"}, bodyText: "", {}),
         ).thenAnswer(
-          (_) async => HttpResponse(statusCode: 201, body: loginResponse),
+          (_) async => HttpResponse(
+            statusCode: 201,
+            body: loginResponse,
+            reasonPhrase: '',
+          ),
         );
 
         final result = await authRemoteDataSource.login(loginModel);

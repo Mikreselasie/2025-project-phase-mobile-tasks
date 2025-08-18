@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants/constants.dart';
+import '../../../../core/presentation/constants/constants.dart';
 
 class InputTypeName extends StatelessWidget {
   const InputTypeName({super.key, required this.name});
@@ -9,7 +9,7 @@ class InputTypeName extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
-      child: Text('$name', style: AppTextStyles.bodyText),
+      child: Text(name, style: AppTextStyles.heading2grey),
     );
   }
 }

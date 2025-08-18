@@ -44,3 +44,15 @@ class AuthFailure extends Failure {
     return const AuthFailure('Token has expired');
   }
 }
+
+class InvalidInputFailure extends Failure {
+  const InvalidInputFailure(super.message);
+
+  factory InvalidInputFailure.emptyField() {
+    return const InvalidInputFailure('Field cannot be empty');
+  }
+
+  factory InvalidInputFailure.invalidEmail() {
+    return const InvalidInputFailure('Invalid email format');
+  }
+}

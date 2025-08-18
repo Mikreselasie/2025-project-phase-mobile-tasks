@@ -3,6 +3,9 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
+import 'package:socket_io_client/socket_io_client.dart' as io;
+
+import '../constants/constants.dart';
 
 enum HttpMethod { post, put }
 
@@ -26,7 +29,7 @@ class HttpResponse extends Equatable {
   final String body;
 
   const HttpResponse({
-    this.reasonPhrase = '',
+    required this.reasonPhrase,
     required this.statusCode,
     required this.body,
   });
@@ -40,33 +43,45 @@ class HttpClient {
   final http.MultipartRequest Function(HttpMethod, String)
   multipartRequestFactory;
 
+  io.Socket? _socket;
+
   final _defaultHeaders = {'Content-Type': 'application/json; charset=UTF-8'};
 
   HttpClient({required this.multipartRequestFactory, required this.client});
 
   set authToken(String token) {
     _defaultHeaders['Authorization'] = 'Bearer $token';
+    _socket = io.io(socketUrl, <String, dynamic>{
+      'autoConnect': false,
+      'transports': ['websocket'],
+      'extraHeaders': <String, String>{'authorization': 'Bearer $token'},
+    });
   }
+
+  io.Socket get socket => _socket!;
 
   Future<HttpResponse> get(String url) async {
     final response = await client.get(Uri.parse(url), headers: _defaultHeaders);
 
-    return HttpResponse(statusCode: response.statusCode, body: response.body);
+    return HttpResponse(
+      statusCode: response.statusCode,
+      body: response.body,
+      reasonPhrase: response.reasonPhrase ?? '',
+    );
   }
 
-  Future<HttpResponse> post(
-    String url,
-    Map<String, dynamic> body, {
-    required Map<String, String> headers,
-    required String bodyText,
-  }) async {
+  Future<HttpResponse> post(String url, Map<String, dynamic> body) async {
     final response = await client.post(
       Uri.parse(url),
       body: jsonEncode(body),
-      headers: _defaultHeaders,
+      headers: {..._defaultHeaders, 'Content-Type': 'application/json'},
     );
 
-    return HttpResponse(statusCode: response.statusCode, body: response.body);
+    return HttpResponse(
+      statusCode: response.statusCode,
+      body: response.body,
+      reasonPhrase: response.reasonPhrase ?? '',
+    );
   }
 
   Future<HttpResponse> put(String url, Map<String, dynamic> body) async {
@@ -76,7 +91,11 @@ class HttpClient {
       headers: _defaultHeaders,
     );
 
-    return HttpResponse(statusCode: response.statusCode, body: response.body);
+    return HttpResponse(
+      statusCode: response.statusCode,
+      body: response.body,
+      reasonPhrase: response.reasonPhrase ?? '',
+    );
   }
 
   Future<HttpResponse> delete(String url) async {
@@ -85,7 +104,11 @@ class HttpClient {
       headers: _defaultHeaders,
     );
 
-    return HttpResponse(statusCode: response.statusCode, body: response.body);
+    return HttpResponse(
+      statusCode: response.statusCode,
+      body: response.body,
+      reasonPhrase: response.reasonPhrase ?? '',
+    );
   }
 
   Future<HttpResponse> uploadFile(

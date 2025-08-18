@@ -1,5 +1,7 @@
-import 'package:ecommerce/features/product/presentation/constants/constants.dart';
+import 'package:ecommerce/core/presentation/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import '../routers/app_routes.dart';
 
 class AddButton extends StatelessWidget {
   const AddButton({super.key});
@@ -7,11 +9,7 @@ class AddButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () => Navigator.pushNamed(
-        context,
-        "/addUpdatePage",
-        arguments: {"action": "add"},
-      ),
+      onPressed: () => context.push(Routes.addProduct),
       shape: CircleBorder(),
       backgroundColor: AppColors.secondary,
       child: Icon(Icons.add, size: 40, color: AppColors.background),

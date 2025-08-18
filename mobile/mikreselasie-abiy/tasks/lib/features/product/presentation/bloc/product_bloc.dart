@@ -12,7 +12,6 @@ import 'package:ecommerce/features/product/domain/usecases/get_product.dart';
 import 'package:ecommerce/features/product/domain/usecases/get_product_params.dart';
 import 'package:ecommerce/features/product/domain/usecases/update_product.dart';
 import 'package:ecommerce/features/product/domain/usecases/update_product_params.dart';
-
 import 'product_event.dart';
 import 'product_state.dart';
 
@@ -31,14 +30,31 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     required this.deleteProduct,
   }) : super(InitialState()) {
     on<LoadAllProductEvent>(_onLoadAllProduct);
+    on<ProductsLoadRequested>(_onProductsLoadRequested);
     on<GetSingleProductEvent>(_onGetSingleProduct);
     on<CreateProductEvent>(_onCreateProduct);
     on<UpdateProductEvent>(_onUpdateProduct);
     on<DeleteProductEvent>(_onDeleteProduct);
+    on<ProductUpdated>(_onProductUpdated);
+    on<ProductAdded>(_onProductAdded);
   }
 
   Future<void> _onLoadAllProduct(
     LoadAllProductEvent event,
+    Emitter<ProductState> emit,
+  ) async {
+    emit(LoadingState());
+    final result = await getAllProducts(NoParams());
+
+    result.fold(
+      (failure) =>
+          emit(ErrorState("Failed to load products: ${failure.message}")),
+      (products) => emit(LoadedAllProductState(products)),
+    );
+  }
+
+  Future<void> _onProductsLoadRequested(
+    ProductsLoadRequested event,
     Emitter<ProductState> emit,
   ) async {
     emit(LoadingState());
@@ -80,8 +96,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       (failure) =>
           emit(ErrorState("Failed to create product: ${failure.message}")),
       (product) => add(
-        LoadAllProductEvent(),
-      ), // Only add LoadAllProductEvent if creation is successful
+        ProductsLoadRequested(),
+      ), // Only add ProductsLoadRequested if creation is successful
     );
   }
 
@@ -98,8 +114,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       (failure) =>
           emit(ErrorState("Failed to update product: ${failure.message}")),
       (product) => add(
-        LoadAllProductEvent(),
-      ), // Only add LoadAllProductEvent if creation is successful
+        ProductsLoadRequested(),
+      ), // Only add ProductsLoadRequested if creation is successful
     );
   }
 
@@ -115,10 +131,42 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       (failure) =>
           emit(ErrorState("Failed to delete product: ${failure.message}")),
       (product) => add(
-        LoadAllProductEvent(),
-      ), // Only add LoadAllProductEvent if creation is successful
+        ProductsLoadRequested(),
+      ), // Only add ProductsLoadRequested if creation is successful
     );
   }
+
+  Future<void> _onProductUpdated(
+    ProductUpdated event,
+    Emitter<ProductState> emit,
+  ) async {
+    emit(LoadingState());
+    final result = await updateProduct(
+      UpdateProductParams(product: event.product),
+    );
+    result.fold(
+      (failure) =>
+          emit(ErrorState("Failed to update product: ${failure.message}")),
+      (product) => emit(ProductUpdateSuccess(ProductModel.fromEntity(product))),
+    );
+  }
+
+  Future<void> _onProductAdded(
+    ProductAdded event,
+    Emitter<ProductState> emit,
+  ) async {
+    emit(LoadingState());
+    final result = await createProduct(
+      CreateProductParams(product: event.product),
+    );
+    result.fold(
+      (failure) =>
+          emit(ErrorState("Failed to create product: ${failure.message}")),
+      (product) => emit(ProductsAddSuccess(ProductModel.fromEntity(product))),
+    );
+  }
+
+  // Inside your BLoC class:
 }
 
-class GetSingleProduct {}
+// Removed stray GetSingleProduct placeholder class

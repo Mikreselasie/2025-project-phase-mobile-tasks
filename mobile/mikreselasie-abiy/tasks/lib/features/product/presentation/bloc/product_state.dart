@@ -1,3 +1,4 @@
+import 'package:ecommerce/features/product/data/models/product_model.dart';
 import 'package:equatable/equatable.dart';
 
 // You can replace dynamic with a proper Product model as needed
@@ -42,4 +43,24 @@ class ErrorState extends ProductState {
 
   @override
   List<Object?> get props => [message];
+}
+
+class ProductAddInProgress extends ProductState {}
+
+class ProductsAddSuccess extends ProductState {
+  final ProductModel product;
+
+  const ProductsAddSuccess(this.product);
+
+  @override
+  List<Object?> get props => [product];
+}
+
+class ProductUpdateSuccess extends ProductState {
+  final ProductModel product;
+
+  const ProductUpdateSuccess(this.product);
+
+  @override
+  List<Object?> get props => [product];
 }

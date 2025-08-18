@@ -1,14 +1,15 @@
+import 'package:ecommerce/core/presentation/routers/app_routes.dart';
 import 'package:ecommerce/features/product/domain/entities/product.dart';
-import 'package:ecommerce/features/product/presentation/constants/constants.dart';
+import 'package:ecommerce/core/presentation/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
     this.imageAspectRatio = 366 / 160,
     required this.product,
-    Key? key,
-  }) : assert(imageAspectRatio > 0),
-       super(key: key);
+    super.key,
+  }) : assert(imageAspectRatio > 0);
 
   final double imageAspectRatio;
   final Product product;
@@ -29,7 +30,7 @@ class ProductCard extends StatelessWidget {
       margin: EdgeInsets.all(10),
       child: GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, "/details", arguments: product);
+          context.go(Routes.productDetail, extra: product);
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

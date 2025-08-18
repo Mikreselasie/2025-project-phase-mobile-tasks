@@ -6,7 +6,6 @@ import 'package:ecommerce/features/auth/data/models/authenticated_user_model.dar
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthLocalDataSourceImpl implements AuthLocalDataSource {
-  @override
   final authCacheKey = 'AUTH';
 
   final SharedPreferences _sharedPreferences;

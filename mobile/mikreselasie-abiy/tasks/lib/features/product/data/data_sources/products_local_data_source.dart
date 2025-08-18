@@ -1,7 +1,7 @@
 import '../models/product_model.dart';
 import '../../domain/entities/product.dart';
 
-abstract class LocalDataSource {
+abstract class ProductLocalDataSource {
   Future<List<ProductModel>> getAllCachedProducts();
   Future<Product> getProductById(String productId);
   Future<void> cacheProducts(List<ProductModel> products);

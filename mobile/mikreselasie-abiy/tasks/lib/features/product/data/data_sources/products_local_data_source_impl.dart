@@ -7,10 +7,10 @@ import 'products_local_data_source.dart';
 
 const String _cachedProductsKey = "CACHED_PRODUCTS";
 
-class LocalDataSourceImpl extends LocalDataSource {
+class ProductLocalDataSourceImpl extends ProductLocalDataSource {
   final SharedPreferences sharedPreferences;
 
-  LocalDataSourceImpl({required this.sharedPreferences});
+  ProductLocalDataSourceImpl({required this.sharedPreferences});
 
   // Helper: Load product list from cache
   List<ProductModel> _loadCachedProducts() {
