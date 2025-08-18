@@ -34,7 +34,9 @@ class AddProductPage extends StatelessWidget {
               children: [
                 UpdateAddTop(word: "Add Product"),
                 SizedBox(height: 30),
-                const SingleChildScrollView(child: ProductForm()),
+                Expanded(
+                  child: const SingleChildScrollView(child: ProductForm()),
+                ),
               ],
             ),
           ),

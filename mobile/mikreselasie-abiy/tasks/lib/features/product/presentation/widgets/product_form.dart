@@ -115,6 +115,7 @@ class _ProductFormState extends State<ProductForm> {
                 }
 
                 return Button(
+                  key: const Key('submitProductButton'),
                   style: ButtonStyle(
                     minimumSize: MaterialStateProperty.all(
                       Size(double.infinity, 50),

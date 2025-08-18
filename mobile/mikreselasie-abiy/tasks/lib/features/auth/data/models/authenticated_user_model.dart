@@ -10,7 +10,7 @@ class AuthenticatedUserModel extends AuthenticatedUser {
 
   factory AuthenticatedUserModel.fromJson(Map<String, dynamic> json) {
     return AuthenticatedUserModel(
-      id: json['id'],
+      id: json['_id'],
       email: json['email'],
       name: json['name'],
       accessToken: json['access_token'],

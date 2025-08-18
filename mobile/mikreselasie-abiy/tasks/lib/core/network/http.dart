@@ -29,7 +29,7 @@ class HttpResponse extends Equatable {
   final String body;
 
   const HttpResponse({
-    this.reasonPhrase = '',
+    required this.reasonPhrase,
     required this.statusCode,
     required this.body,
   });
@@ -63,22 +63,25 @@ class HttpClient {
   Future<HttpResponse> get(String url) async {
     final response = await client.get(Uri.parse(url), headers: _defaultHeaders);
 
-    return HttpResponse(statusCode: response.statusCode, body: response.body);
+    return HttpResponse(
+      statusCode: response.statusCode,
+      body: response.body,
+      reasonPhrase: response.reasonPhrase ?? '',
+    );
   }
 
-  Future<HttpResponse> post(
-    String url,
-    Map<String, dynamic> body,
-    Map map, {
-    required String bodyText,
-  }) async {
+  Future<HttpResponse> post(String url, Map<String, dynamic> body) async {
     final response = await client.post(
       Uri.parse(url),
       body: jsonEncode(body),
-      headers: _defaultHeaders,
+      headers: {..._defaultHeaders, 'Content-Type': 'application/json'},
     );
 
-    return HttpResponse(statusCode: response.statusCode, body: response.body);
+    return HttpResponse(
+      statusCode: response.statusCode,
+      body: response.body,
+      reasonPhrase: response.reasonPhrase ?? '',
+    );
   }
 
   Future<HttpResponse> put(String url, Map<String, dynamic> body) async {
@@ -88,7 +91,11 @@ class HttpClient {
       headers: _defaultHeaders,
     );
 
-    return HttpResponse(statusCode: response.statusCode, body: response.body);
+    return HttpResponse(
+      statusCode: response.statusCode,
+      body: response.body,
+      reasonPhrase: response.reasonPhrase ?? '',
+    );
   }
 
   Future<HttpResponse> delete(String url) async {
@@ -97,7 +104,11 @@ class HttpClient {
       headers: _defaultHeaders,
     );
 
-    return HttpResponse(statusCode: response.statusCode, body: response.body);
+    return HttpResponse(
+      statusCode: response.statusCode,
+      body: response.body,
+      reasonPhrase: response.reasonPhrase ?? '',
+    );
   }
 
   Future<HttpResponse> uploadFile(

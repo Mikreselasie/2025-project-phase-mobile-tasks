@@ -81,12 +81,9 @@ class ChatRemoteDataSourceImpl extends ChatRemoteDataSource {
   @override
   Future<ChatModel> getOrCreateChat(UserModel receiver) async {
     try {
-      final response = await client.post(
-        _baseUrl,
-        {'userId': receiver.id},
-        receiver.toJson(),
-        bodyText: receiver.toJson().toString(),
-      );
+      final response = await client.post(_baseUrl, {
+        'userId': receiver.id,
+      }, );
 
       if (response.statusCode == 200) {
         return ChatModel.fromJson(jsonDecode(response.body)['data']);

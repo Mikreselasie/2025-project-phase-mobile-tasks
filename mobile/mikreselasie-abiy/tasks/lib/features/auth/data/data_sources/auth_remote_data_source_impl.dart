@@ -18,12 +18,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
 
   @override
   Future<AccessToken> login(LoginModel loginModel) async {
-    final response = await client.post(
-      '$_baseUrl/login',
-      loginModel.toJson(),
-      {},
-      bodyText: "",
-    );
+    final response = await client.post('$_baseUrl/login', loginModel.toJson());
 
     if (response.statusCode == 201) {
       return AccessToken.fromJson(jsonDecode(response.body)['data']);
@@ -44,8 +39,6 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     final response = await client.post(
       '$_baseUrl/register',
       registerModel.toJson(),
-      {},
-      bodyText: "",
     );
 
     if (response.statusCode >= 200 && response.statusCode <= 300) {

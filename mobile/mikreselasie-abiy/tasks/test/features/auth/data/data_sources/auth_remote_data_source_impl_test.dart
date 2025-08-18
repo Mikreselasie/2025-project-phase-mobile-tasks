@@ -30,7 +30,11 @@ void main() {
         when(
           mockHttpClient.post("any", {"any": "any"}, bodyText: "", {}),
         ).thenAnswer(
-          (_) async => HttpResponse(statusCode: 201, body: loginResponse),
+          (_) async => HttpResponse(
+            statusCode: 201,
+            body: loginResponse,
+            reasonPhrase: '',
+          ),
         );
 
         final result = await authRemoteDataSource.login(loginModel);
